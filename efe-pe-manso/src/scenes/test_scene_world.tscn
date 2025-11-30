@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkfsbe4vy24nw"]
+
+[ext_resource type="PackedScene" uid="uid://dbx504quglgxd" path="res://src/scenes/Player.tscn" id="1_4q771"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_npsh7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sglx1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4q771"]
+
+[sub_resource type="Sky" id="Sky_4q771"]
+sky_material = SubResource("ProceduralSkyMaterial_4q771")
+
+[sub_resource type="Environment" id="Environment_npsh7"]
+background_mode = 2
+sky = SubResource("Sky_4q771")
+
+[node name="TestZoneNode" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(20, 0, 0, 0, 0.1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_npsh7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("BoxShape3D_sglx1")
+
+[node name="Player" parent="." instance=ExtResource("1_4q771")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2453303, 1.8071954, -0.4446659)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6544719, 0.91888475, 3.6777887)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_npsh7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0476456, 3.588768, 2.2538395)
