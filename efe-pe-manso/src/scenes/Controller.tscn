@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbx504quglgxd"]
+
+[ext_resource type="Script" uid="uid://d2beqtinvtcn2" path="res://src/scenes/Controller.gd" id="1_0wdt2"]
+[ext_resource type="ArrayMesh" uid="uid://hcmaexb5ii3g" path="res://src/assets/models/Package/Gestapo-1.obj" id="2_o6hg5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bt6dr"]
+radius = 0.30859375
+height = 1.6499023
+
+[node name="Controller" type="CharacterBody3D"]
+script = ExtResource("1_0wdt2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017381847, 0.80959713, 0.0051169395)
+shape = SubResource("CapsuleShape3D_bt6dr")
+
+[node name="CharacterWorldModel" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterWorldModel"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.474, 0, 0.11)
+mesh = ExtResource("2_o6hg5")
+skeleton = NodePath("../..")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5167382, 0)
+
+[node name="CharacterHeadCamera" type="Camera3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(-0.9899053, 0, -0.14173062, 0, 1, 0, 0.14173062, 0, -0.98990524, -0.0029623508, -0.008550644, 0.097335994)
