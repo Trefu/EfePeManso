@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbx504quglgxd"]
 
-[ext_resource type="Script" uid="uid://d2beqtinvtcn2" path="res://src/scenes/Controller.gd" id="1_0wdt2"]
+[ext_resource type="Script" uid="uid://d2beqtinvtcn2" path="res://src/scripts/player/Controller.gd" id="1_0wdt2"]
 [ext_resource type="ArrayMesh" uid="uid://hcmaexb5ii3g" path="res://src/assets/models/Package/Gestapo-1.obj" id="2_o6hg5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bt6dr"]

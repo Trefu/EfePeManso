@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://dsp8uibcmbtp"]
+
+[ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_rk8i1"]
+[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_qn34y"]
+[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/TrefuTestPlayer.tscn" id="3_qn34y"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
+panorama = ExtResource("1_rk8i1")
+
+[sub_resource type="Sky" id="Sky_filqw"]
+sky_material = SubResource("PanoramaSkyMaterial_gkywo")
+
+[sub_resource type="Environment" id="Environment_h0k64"]
+background_mode = 2
+sky = SubResource("Sky_filqw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8ikh"]
+albedo_texture = ExtResource("2_qn34y")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_q65cb"]
+material = SubResource("StandardMaterial3D_b8ikh")
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56e81"]
+size = Vector3(100, 0.1, 100)
+
+[node name="TestZone" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h0k64")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 105.66548, 0)
+light_color = Color(0.8334266, 0.9169134, 0.3884214, 1)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_q65cb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_56e81")
+
+[node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)

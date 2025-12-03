@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://crly7xdb6d7oe"]
 
-[ext_resource type="Script" uid="uid://cg8ckw3oxcaul" path="res://src/scenes/BaseWorldTest.gd" id="1_laoy5"]
+[ext_resource type="Script" uid="uid://cg8ckw3oxcaul" path="res://src/scripts/levels/BaseWorldTest.gd" id="1_laoy5"]
 [ext_resource type="PackedScene" uid="uid://dbx504quglgxd" path="res://src/scenes/Controller.tscn" id="1_qbopp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_pesjd"]
