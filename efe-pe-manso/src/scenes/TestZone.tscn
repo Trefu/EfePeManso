@@ -46,6 +46,7 @@ shadow_enabled = true
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 transform = Transform3D(0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0)
@@ -55,9 +56,9 @@ mesh = SubResource("BoxMesh_q65cb")
 shape = SubResource("BoxShape3D_56e81")
 
 [node name="Structure" type="CSGBox3D" parent="."]
-transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, -3.1442223, 0.57032984, 1.3802724)
+transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, -4.599931, 1.6699187, 0.9825252)
 use_collision = true
-size = Vector3(1, 1.3217773, 1)
+size = Vector3(2.7081056, 4.628174, 1.7006836)
 
 [node name="Mirror" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0015461798, 0.9999997, 0, -2.0602741, 0.00075048296, -10.02134, 11.4289665, -1.3075166)
@@ -73,3 +74,8 @@ transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.
 fov = 118.2
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
+
+[node name="Structure2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, 6.66695, 1.1395457, -6.218589)
+use_collision = true
+size = Vector3(6.3, 3.3, 2.7)
