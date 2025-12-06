@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsp8uibcmbtp"]
+[gd_scene load_steps=10 format=3 uid="uid://dsp8uibcmbtp"]
 
 [ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_rk8i1"]
 [ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_qn34y"]
@@ -27,13 +27,6 @@ size = Vector3(100, 0.1, 100)
 [sub_resource type="BoxShape3D" id="BoxShape3D_56e81"]
 size = Vector3(100, 0.1, 100)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_qn34y"]
-viewport_path = NodePath("Mirror/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn34y"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_qn34y")
-
 [node name="TestZone" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -41,35 +34,21 @@ environment = SubResource("Environment_h0k64")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 105.66548, 0)
-light_color = Color(0.8693133, 0.88926965, 0.6263495, 1)
+light_color = Color(0.8334266, 0.9169134, 0.3884214, 1)
 shadow_enabled = true
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0)
 mesh = SubResource("BoxMesh_q65cb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_56e81")
 
 [node name="Structure" type="CSGBox3D" parent="."]
-transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, -3.1442223, 0.57032984, 1.3802724)
+transform = Transform3D(1, 0, 0, 0, 0.7089679, 0, 0, 0, 1.84164, -3.1442223, 0.57032984, 1.3802724)
 use_collision = true
 size = Vector3(1, 1.3217773, 1)
-
-[node name="Mirror" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0015461798, 0.9999997, 0, -2.0602741, 0.00075048296, -10.02134, 11.4289665, -1.3075166)
-use_collision = true
-size = Vector3(1, 22.73888, 22.908325)
-material = SubResource("StandardMaterial3D_qn34y")
-
-[node name="SubViewport" type="SubViewport" parent="Mirror"]
-size = Vector2i(1152, 648)
-
-[node name="Camera3D" type="Camera3D" parent="Mirror/SubViewport"]
-transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -7.9638567, 2.5912523, -2.6054692)
-fov = 118.2
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]

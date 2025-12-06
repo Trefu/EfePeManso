@@ -1,11 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=9 format=3 uid="uid://b84l3vpfs2wf"]
 
-[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/TrefuTestPlayer.gd" id="1_gh8lm"]
+[ext_resource type="Script" uid="uid://dgc6tof4vmyqp" path="res://src/scripts/components/MovementComponent.gd" id="2_bponb"]
+[ext_resource type="Script" uid="uid://dtlaurplca0w6" path="res://src/scripts/components/MouseComponent.gd" id="3_4u3p5"]
+[ext_resource type="Script" uid="uid://bm1xwk8umur6k" path="res://src/scripts/components/GravityComponent.gd" id="4_8agy7"]
+[ext_resource type="Script" uid="uid://oys7ohnnu6sj" path="res://src/scripts/components/JumpComponent.gd" id="4_emtou"]
+[ext_resource type="Script" uid="uid://beec6tgspwtrl" path="res://src/scripts/components/DashComponent.gd" id="5_8agy7"]
+
+[sub_resource type="GDScript" id="GDScript_emtou"]
+script/source = "extends CharacterBody3D
+
+#region Components
+@onready var mouse_component: MouseComponent = $MouseComponent
+@onready var movement_component: MovementComponent = $MovementComponent
+@onready var jump_component: JumpComponent = $JumpComponent
+@onready var gravity_component: GravityComponent = $GravityComponent
+#endregion
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+#region Physics Processing
+func _physics_process(delta: float) -> void:
+	# Procesar movimiento
+	movement_component.handle_movement(delta)
+	
+	# Procesar gravedad
+	gravity_component.handle_gravity(delta)
+	
+	# Procesar dash
+	#dash_component.handle_dash(delta)
+	
+	# Procesar movimiento (solo si no está haciendo dash)
+	#if not dash_component.isDashing:
+	#	movement_component.handle_movement(delta)
+		
+	# Procesar salto
+	jump_component.handle_jump()
+	# Aplicar física
+	move_and_slide()
+#endregion
+"
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8agy7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bponb"]
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
-script = ExtResource("1_gh8lm")
+script = SubResource("GDScript_emtou")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_8agy7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -16,3 +61,18 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
+
+[node name="MovementComponent" type="Node3D" parent="."]
+script = ExtResource("2_bponb")
+
+[node name="MouseComponent" type="Node3D" parent="."]
+script = ExtResource("3_4u3p5")
+
+[node name="JumpComponent" type="Node3D" parent="."]
+script = ExtResource("4_emtou")
+
+[node name="GravityComponent" type="Node3D" parent="."]
+script = ExtResource("4_8agy7")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("5_8agy7")
