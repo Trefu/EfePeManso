@@ -8,4 +8,4 @@ func _ready() -> void:
 
 func handle_gravity(delta: float) -> void:
 	if not player.is_on_floor():
-		player.velocity += player.get_gravity() * delta
+		player.velocity += player.get_gravity() * GameConfig.gravity_multiplier * delta
