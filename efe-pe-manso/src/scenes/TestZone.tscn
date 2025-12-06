@@ -48,3 +48,6 @@ shape = SubResource("BoxShape3D_56e81")
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="Structure" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.756195, 0, 1.2863252)

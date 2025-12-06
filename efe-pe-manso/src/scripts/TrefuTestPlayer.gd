@@ -1,20 +1,19 @@
 extends CharacterBody3D
 
+#region seteo de vars
 @export var currentSpeed = 5.0
 const crouchingSpeed = 3.0
-
 const jumpVelocity = 4.5
-
 const aim_sensitivity = 0.4
-
 var lerp_speed = 10.0 
-
 var direction = Vector3.ZERO
+#endregion
 
 func _ready():
 	#para que el mouse empiece 'oculto'
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+#region manejo de mouse con unhandle input
 func _unhandled_input(event: InputEvent):
 	
 	# ESC para liberar mouse	
@@ -34,6 +33,9 @@ func _unhandled_input(event: InputEvent):
 		%head.rotate_x(deg_to_rad(-event.relative.y * aim_sensitivity))
 		%head.rotation.x = clamp(%head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 		
+#endregion
+
+#region procesado de fisicas
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -55,3 +57,4 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, currentSpeed)
 
 	move_and_slide()
+	#endregion
