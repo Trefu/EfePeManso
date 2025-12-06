@@ -14,6 +14,7 @@ script/source = "extends CharacterBody3D
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var jump_component: JumpComponent = $JumpComponent
 @onready var gravity_component: GravityComponent = $GravityComponent
+@onready var dash_component: DashComponent = $DashComponent
 #endregion
 
 func _ready():
@@ -21,21 +22,19 @@ func _ready():
 
 #region Physics Processing
 func _physics_process(delta: float) -> void:
-	# Procesar movimiento
-	movement_component.handle_movement(delta)
-	
 	# Procesar gravedad
 	gravity_component.handle_gravity(delta)
 	
 	# Procesar dash
-	#dash_component.handle_dash(delta)
+	dash_component.handle_dash(delta)
 	
 	# Procesar movimiento (solo si no está haciendo dash)
-	#if not dash_component.isDashing:
-	#	movement_component.handle_movement(delta)
+	if not dash_component.isDashing:
+		movement_component.handle_movement(delta)
 		
 	# Procesar salto
 	jump_component.handle_jump()
+	
 	# Aplicar física
 	move_and_slide()
 #endregion
@@ -74,5 +73,5 @@ script = ExtResource("4_emtou")
 [node name="GravityComponent" type="Node3D" parent="."]
 script = ExtResource("4_8agy7")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="DashComponent" type="Node3D" parent="."]
 script = ExtResource("5_8agy7")

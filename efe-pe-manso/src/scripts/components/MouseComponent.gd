@@ -1,13 +1,12 @@
 extends Node
 class_name MouseComponent
 
-@export var aim_sensitivity: float = 0.2
 var head: Node3D
-var character: CharacterBody3D
+var player: CharacterBody3D
 
-func _ready():
-	character = get_parent()
-	head = character.get_node("%head")
+func _ready() -> void:
+	player = get_parent()
+	head = player.get_node("%head")
 
 func _unhandled_input(event: InputEvent):
 	# ESC para liberar mouse	
@@ -23,6 +22,6 @@ func _unhandled_input(event: InputEvent):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		character.rotate_y(deg_to_rad(-event.relative.x * aim_sensitivity))
-		head.rotate_x(deg_to_rad(-event.relative.y * aim_sensitivity))
+		player.rotate_y(deg_to_rad(-event.relative.x * GameConfig.player_mouse_sensitivity))
+		head.rotate_x(deg_to_rad(-event.relative.y * GameConfig.player_mouse_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))

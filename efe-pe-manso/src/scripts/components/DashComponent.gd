@@ -1,41 +1,36 @@
 extends Node
 class_name DashComponent
 
-@export var dash_speed: float = 20.0
-@export var dash_duration: float = 0.2
+var isDashing: bool = false
+var dashTimeRemaining: float = 0.0
+var dashDirection: Vector3 = Vector3.ZERO
+var player: CharacterBody3D
 
-var is_dashing: bool = false
-var dash_time_remaining: float = 0.0
-var dash_direction: Vector3 = Vector3.ZERO
+func _ready() -> void:
+	player = get_parent()
 
-var character: CharacterBody3D
+func handle_dash(delta: float) -> void:
+	var dash_input = Input.is_action_just_pressed("dash")
 
-func _ready():
-	character = get_parent()
-
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("sprint") and not is_dashing:
+	if dash_input and not isDashing:
 		start_dash()
 	
-	if is_dashing:
+	if isDashing:
+
 		update_dash(delta)
 
 func start_dash() -> void:
-	is_dashing = true
-	dash_time_remaining = dash_duration
+	isDashing = true
+	dashTimeRemaining = GameConfig.player_dash_duration
 	# Dash en la dirección de la cámara
-	dash_direction = -character.global_transform.basis.z
-	dash_direction.y = 0
-	dash_direction = dash_direction.normalized()
+	dashDirection = -player.global_transform.basis.z
+	dashDirection.y = 0
+	dashDirection = dashDirection.normalized()
 
 func update_dash(delta: float) -> void:
-	dash_time_remaining -= delta
-	if dash_time_remaining <= 0:
-		is_dashing = false
+	dashTimeRemaining -= delta
+	if dashTimeRemaining <= 0:
+		isDashing = false
 	else:
-		character.velocity.x = dash_direction.x * dash_speed
-		character.velocity.z = dash_direction.z * dash_speed
-		character.move_and_slide()
-
-func is_active() -> bool:
-	return is_dashing
+		player.velocity.x = dashDirection.x * GameConfig.player_dash_speed
+		player.velocity.z = dashDirection.z * GameConfig.player_dash_speed

@@ -1,11 +1,11 @@
 extends Node
 class_name GravityComponent
 
-var character: CharacterBody3D
+var player: CharacterBody3D
 
-func _ready():
-	character = get_parent()
+func _ready() -> void:
+	player = get_parent()
 
 func handle_gravity(delta: float) -> void:
-	if not character.is_on_floor():
-		character.velocity += character.get_gravity() * delta
+	if not player.is_on_floor():
+		player.velocity += player.get_gravity() * delta

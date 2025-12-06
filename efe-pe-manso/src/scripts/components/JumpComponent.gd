@@ -1,12 +1,11 @@
 extends Node
 class_name JumpComponent
 
-const jump_velocity: float = 4.5
-var character: CharacterBody3D
+var player: CharacterBody3D
 
-func _ready():
-	character = get_parent()
+func _ready() -> void:
+	player = get_parent()
 
 func handle_jump() -> void:
-	if Input.is_action_just_pressed("jump") and character.is_on_floor():
-		character.velocity.y = jump_velocity
+	if Input.is_action_just_pressed("jump") and player.is_on_floor():
+		player.velocity.y = GameConfig.player_jump_velocity

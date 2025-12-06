@@ -4,8 +4,8 @@ extends CharacterBody3D
 @onready var mouse_component: MouseComponent = $MouseComponent
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var jump_component: JumpComponent = $JumpComponent
-@onready var gravity_component: GravityComponent = $
-@onready var dash_component: DashComponent = $
+@onready var gravity_component: GravityComponent = $GravityComponent
+@onready var dash_component: DashComponent = $DashComponent
 #endregion
 
 func _ready():
@@ -13,9 +13,6 @@ func _ready():
 
 #region Physics Processing
 func _physics_process(delta: float) -> void:
-	# Procesar movimiento
-	movement_component.handle_movement(delta)
-	
 	# Procesar gravedad
 	gravity_component.handle_gravity(delta)
 	
@@ -28,6 +25,7 @@ func _physics_process(delta: float) -> void:
 		
 	# Procesar salto
 	jump_component.handle_jump()
+	
 	# Aplicar física
 	move_and_slide()
 #endregion
