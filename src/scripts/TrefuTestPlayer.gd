@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var jump_component: JumpComponent = $JumpComponent
 @onready var gravity_component: GravityComponent = $GravityComponent
 @onready var dash_component: DashComponent = $DashComponent
+@onready var animation_component: AnimationComponent = $AnimationComponent
 #endregion
 
 func _ready():
@@ -28,4 +29,13 @@ func _physics_process(delta: float) -> void:
 	
 	# Aplicar física
 	move_and_slide()
+	update_animation()
 #endregion
+
+func update_animation():
+	if animation_component:
+		animation_component.update_from_movement(
+			velocity,
+			is_on_floor(),
+			false  # is_dashing - ajusta según tu dash component
+		)

@@ -71,8 +71,8 @@ material = SubResource("StandardMaterial3D_qn34y")
 size = Vector2i(1152, 648)
 
 [node name="Camera3D" type="Camera3D" parent="Mirror/SubViewport"]
-transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -9.615648, 2.5912523, -2.6054692)
-fov = 121.1887
+transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -7.9638567, 2.5912523, -2.6054692)
+fov = 118.2
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
 

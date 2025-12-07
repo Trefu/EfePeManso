@@ -21,7 +21,7 @@ GameConfig="*res://src/scripts/Config.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/addons/mixamo_animation_retargeter/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
