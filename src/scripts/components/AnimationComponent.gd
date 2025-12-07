@@ -21,7 +21,6 @@ func update_from_movement(velocity: Vector3, _is_on_floor: bool, _is_dashing: bo
 
 	if speed < 0.05:
 		animation_tree.set(blend_space_path, Vector2.ZERO)
-		print("DEBUG - Speed too low, setting to ZERO")
 		return
 
 	var character_forward := -character.global_transform.basis.z.normalized()
