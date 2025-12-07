@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsp8uibcmbtp"]
+[gd_scene load_steps=13 format=3 uid="uid://dsp8uibcmbtp"]
 
 [ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_rk8i1"]
 [ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_qn34y"]
 [ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/TrefuTestPlayer.tscn" id="3_qn34y"]
+[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/TrefuTestPlayer.gd" id="4_gkywo"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
 panorama = ExtResource("1_rk8i1")
@@ -61,6 +62,11 @@ transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674,
 use_collision = true
 size = Vector3(2.7081056, 4.628174, 1.7006836)
 
+[node name="Structure2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, 6.66695, 1.1395457, -6.218589)
+use_collision = true
+size = Vector3(6.3, 3.3, 2.7)
+
 [node name="Mirror" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0015461798, 0.9999997, 0, -2.0602741, 0.00075048296, -10.02134, 11.4289665, -1.3075166)
 use_collision = true
@@ -72,11 +78,7 @@ size = Vector2i(1152, 648)
 
 [node name="Camera3D" type="Camera3D" parent="Mirror/SubViewport"]
 transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -9.615648, 2.5912523, -2.6054692)
-fov = 121.1887
+fov = 100.0
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
-
-[node name="Structure2" type="CSGBox3D" parent="."]
-transform = Transform3D(0.9273211, 0, 0.63977474, 0, 0.70896786, 0, -0.37426674, 0, 1.5851704, 6.66695, 1.1395457, -6.218589)
-use_collision = true
-size = Vector3(6.3, 3.3, 2.7)
+script = ExtResource("4_gkywo")
