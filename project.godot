@@ -15,10 +15,6 @@ run/main_scene="uid://dsp8uibcmbtp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-GameConfig="*res://src/scripts/Config.gd"
-
 [editor_plugins]
 
 enabled=PackedStringArray()
