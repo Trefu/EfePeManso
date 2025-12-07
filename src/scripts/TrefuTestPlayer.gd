@@ -7,10 +7,10 @@ extends CharacterBody3D
 #endregion
 
 #region Configuration
-const MOVEMENT_SPEED: float = 5.0
-const MOVEMENT_LERP_SPEED: float = 8.0
-const GRAVITY_MULTIPLIER: float = 1.0
-const JUMP_VELOCITY: float = 7.0
+const MOVEMENT_SPEED: float = 8.0
+const MOVEMENT_LERP_SPEED: float = 16.0
+const GRAVITY_MULTIPLIER: float = 2.3
+const JUMP_VELOCITY: float = 12.0
 const COYOTE_TIME_MAX: float = 0.1  # 100ms
 const JUMP_BUFFER_MAX: float = 0.1  # 100ms
 #endregion

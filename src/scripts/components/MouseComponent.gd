@@ -1,7 +1,7 @@
 extends Node
 class_name MouseComponent
 
-const MOUSE_SENSITIVITY: float = 0.03
+const MOUSE_SENSITIVITY: float = 0.06
 
 var head: Node3D
 var player: CharacterBody3D

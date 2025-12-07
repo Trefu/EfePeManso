@@ -19,7 +19,7 @@ func update_from_movement(velocity: Vector3, _is_on_floor: bool, _is_dashing: bo
 	var horizontal_velocity := Vector3(velocity.x, 0.0, velocity.z)
 	var speed := horizontal_velocity.length()
 
-	if speed < 0.05:
+	if speed < 0.5:
 		animation_tree.set(blend_space_path, Vector2.ZERO)
 		return
 

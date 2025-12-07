@@ -129,4 +129,5 @@ transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.
 fov = 120.8
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035081387, 0.5442995, 0.01966834)
 script = ExtResource("4_gkywo")
