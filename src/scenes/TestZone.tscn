@@ -127,7 +127,7 @@ size = Vector2i(1152, 648)
 
 [node name="Camera3D" type="Camera3D" parent="Mirror/SubViewport"]
 transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -9.615648, 6.8161087, -2.6054692)
-fov = 120.8
+fov = 125.4
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035081387, 1.559704, 0.01966834)

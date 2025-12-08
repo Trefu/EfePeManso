@@ -18,6 +18,10 @@ const JUMP_BUFFER_MAX: float = 0.1
 var direction: Vector3 = Vector3.ZERO
 var coyote_time: float = 0.0
 var jump_buffer_time: float = 0.0
+var air_jumps: int = 0
+const MAX_AIR_JUMPS: int = 1
+var last_jump_time: float = 0.0
+const JUMP_COOLDOWN: float = 0.1  # 100ms entre saltos
 #endregion
 
 func _ready():
@@ -28,6 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_floor():
 		coyote_time = COYOTE_TIME_MAX
+		air_jumps = 0
 	else:
 		coyote_time -= delta
 	
@@ -37,14 +42,17 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_time -= delta
 	
 
-	handle_gravity(delta)
+	# Procesar salto PRIMERO (antes de dash y gravedad)
+	handle_jump()
 	
+	# Procesar dash
 	dash_component.handle_dash(delta)
 	
+	# Procesar movimiento (solo si no está dasheando)
 	if not dash_component.isDashing:
 		handle_movement(delta)
-	
-	handle_jump()
+		# Aplicar gravedad solo si no está dasheando
+		handle_gravity(delta)
 	
 	move_and_slide()
 #endregion
@@ -64,14 +72,26 @@ func handle_movement(delta: float) -> void:
 
 #region Gravity
 func handle_gravity(delta: float) -> void:
-	if not is_on_floor():
+	if not is_on_floor() and not dash_component.isDashing:
 		velocity += get_gravity() * GRAVITY_MULTIPLIER * delta
 #endregion
 
-#region Jump (with Coyote Time & Jump Buffer)
+#region Jump (with Coyote Time & Jump Buffer & Double Jump)
 func handle_jump() -> void:
-	if jump_buffer_time > 0.0 and coyote_time > 0.0:
-		velocity.y = JUMP_VELOCITY
-		jump_buffer_time = 0.0  
-		coyote_time = 0.0  
+	if jump_buffer_time > 0.0:
+		if coyote_time > 0.0:
+			# Salto normal desde el suelo
+			velocity.y = JUMP_VELOCITY
+			coyote_time = 0.0
+			jump_buffer_time = 0.0
+			last_jump_time = 0.0
+		elif air_jumps < MAX_AIR_JUMPS and last_jump_time >= JUMP_COOLDOWN:
+			# Doble salto en el aire (con cooldown)
+			velocity.y = JUMP_VELOCITY
+			air_jumps += 1
+			jump_buffer_time = 0.0
+			last_jump_time = 0.0
+	
+	# Incrementar cooldown siempre
+	last_jump_time += get_physics_process_delta_time()
 #endregion
