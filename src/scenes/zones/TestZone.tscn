@@ -63,13 +63,13 @@ shape = SubResource("BoxShape3D_56e81")
 metadata/_edit_lock_ = true
 
 [node name="Wall2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 3, 1.9459801, 7.8368645, 19.498608)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 3, 1.9459801, 7.9, 19.498608)
 use_collision = true
 size = Vector3(23, 31, 1)
 material = SubResource("StandardMaterial3D_gkywo")
 
 [node name="Wall3" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 3, 0, 0.5, 0, -1, 0, -1.3113416e-07, 14.890566, 7.8340616, 9.469158)
+transform = Transform3D(-4.371139e-08, 0, 3, 0, 0.5, 0, -1, 0, -1.3113416e-07, 14.561741, 7.892569, 9.469158)
 use_collision = true
 size = Vector3(23, 30.970276, 0.93652344)
 material = SubResource("StandardMaterial3D_gkywo")
@@ -81,7 +81,7 @@ radius = 2.0390625
 height = 3.1405296
 
 [node name="Wall4" type="CSGBox3D" parent="."]
-transform = Transform3D(-3, 0, -4.5298742e-07, 0, 0.5, 0, 4.5298742e-07, 0, -3, 4.7125826, 1.166501, -15.861972)
+transform = Transform3D(-3, 0, -4.5298742e-07, 0, 0.5, 0, 4.5298742e-07, 0, -3, 4.7125826, 1.1615052, -15.861972)
 use_collision = true
 size = Vector3(0.8218384, 4.0460205, 1)
 material = SubResource("StandardMaterial3D_gkywo")
@@ -93,13 +93,13 @@ size = Vector3(0.20118359, 8.423401, 0.4074707)
 material = SubResource("StandardMaterial3D_gkywo")
 
 [node name="Wall6" type="CSGBox3D" parent="."]
-transform = Transform3D(0.032619547, 0, -2.9998221, 0, 0.25, 0, 2.9998221, 0, 0.032619845, 14.75905, 7.975874, -15.503275)
+transform = Transform3D(0.032619547, 0, -2.9998221, 0, 0.25, 0, 2.9998221, 0, 0.032619845, 14.445075, 7.8794847, -15.207151)
 use_collision = true
-size = Vector3(8.946533, 60.77234, 0.89575195)
+size = Vector3(8.946533, 61.835876, 0.89575195)
 material = SubResource("StandardMaterial3D_gkywo")
 
 [node name="Wall7" type="CSGBox3D" parent="."]
-transform = Transform3D(2.9998221, 0, 0.03261997, 0, 0.25, 0, -0.032619677, 0, 2.9998221, 1.3146231, 7.894471, -27.370275)
+transform = Transform3D(2.9998221, 0, 0.03261997, 0, 0.25, 0, -0.032619677, 0, 2.9998221, 1.3146231, 7.75199, -27.370275)
 use_collision = true
 size = Vector3(7.935486, 60.815918, 1)
 material = SubResource("StandardMaterial3D_gkywo")
@@ -116,8 +116,14 @@ use_collision = true
 size = Vector3(6.583325, 0.7027588, 6.3859863)
 material = SubResource("StandardMaterial3D_gkywo")
 
+[node name="Wall10" type="CSGBox3D" parent="."]
+transform = Transform3D(0.3979332, 0, -0.9174144, 0, 1, 0, 0.9174144, 0, 0.3979332, 25.569645, 0.5013794, 1.324029)
+use_collision = true
+size = Vector3(6.583325, 0.7027588, 6.3859863)
+material = SubResource("StandardMaterial3D_gkywo")
+
 [node name="Mirror" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0015461798, 0.9999997, 0, -2.0602741, 0.00075048296, -10.02134, 11.4289665, -2.3075166)
+transform = Transform3D(1, 0, 0, 0, 0.0015461798, 0.9999997, 0, -2.0602741, 0.00075048296, -10.02134, 11.621738, -2.3075166)
 use_collision = true
 size = Vector3(1, 22.73888, 22.908325)
 material = SubResource("StandardMaterial3D_qn34y")

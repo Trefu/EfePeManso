@@ -3,6 +3,7 @@ extends CharacterBody3D
 #region Components
 @onready var mouse_component: MouseComponent = $MouseComponent
 @onready var dash_component: DashComponent = $DashComponent
+@onready var camera: Camera3D = $head/Camera3D
 #endregion
 
 #region Configuration
@@ -12,6 +13,11 @@ const GRAVITY_MULTIPLIER: float = 2.8
 const JUMP_VELOCITY: float = 14.0
 const COYOTE_TIME_MAX: float = 0.1
 const JUMP_BUFFER_MAX: float = 0.1
+
+# Headbob Configuration
+const HEADBOB_SPEED: float = 13.0
+const HEADBOB_AMOUNT: float = 0.05
+const HEADBOB_SPRINT_MULTIPLIER: float = 1.5
 #endregion
 
 #region Movement & Physics
@@ -22,6 +28,10 @@ var air_jumps: int = 0
 const MAX_AIR_JUMPS: int = 1
 var last_jump_time: float = 0.0
 const JUMP_COOLDOWN: float = 0.1  # 100ms entre saltos
+
+# Headbob Variables
+var headbob_time: float = 0.0
+var headbob_intensity: float = 0.0
 #endregion
 
 func _ready():
@@ -53,6 +63,8 @@ func _physics_process(delta: float) -> void:
 		handle_movement(delta)
 		# Aplicar gravedad solo si no está dasheando
 		handle_gravity(delta)
+		# Aplicar headbob
+		handle_headbob(delta)
 	
 	move_and_slide()
 #endregion
@@ -94,4 +106,19 @@ func handle_jump() -> void:
 	
 	# Incrementar cooldown siempre
 	last_jump_time += get_physics_process_delta_time()
+#endregion
+
+#region Headbob
+func handle_headbob(delta: float) -> void:
+	if is_on_floor() and direction.length() > 0.1:
+		headbob_time += delta * HEADBOB_SPEED
+		headbob_intensity = lerp(headbob_intensity, HEADBOB_AMOUNT, delta * 10.0)
+	else:
+		headbob_intensity = lerp(headbob_intensity, 0.0, delta * 10.0)
+	
+	var headbob_offset = Vector3.ZERO
+	headbob_offset.y = sin(headbob_time * 2.0) * headbob_intensity
+	headbob_offset.x = cos(headbob_time) * headbob_intensity * 0.5
+	
+	camera.transform.origin = headbob_offset
 #endregion

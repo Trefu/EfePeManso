@@ -16,7 +16,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot") and can_shoot and not animation.is_playing():
-		print("disparar")
 		animation.play("shoot")
 		shot_sound.play()
 
