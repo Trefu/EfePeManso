@@ -24,9 +24,9 @@ func handle_dash(delta: float) -> void:
 func start_dash() -> void:
 	isDashing = true
 	dashTimeRemaining = DASH_DURATION
-	# Dash en la dirección de la cámara
-	dashDirection = -player.global_transform.basis.z
-	dashDirection.y = 0
+	#directional dash, to the head look direction
+	var head = player.get_node("%head")
+	dashDirection = -head.global_transform.basis.z
 	dashDirection = dashDirection.normalized()
 
 func update_dash(delta: float) -> void:
@@ -34,5 +34,4 @@ func update_dash(delta: float) -> void:
 	if dashTimeRemaining <= 0:
 		isDashing = false
 	else:
-		player.velocity.x = dashDirection.x * DASH_SPEED
-		player.velocity.z = dashDirection.z * DASH_SPEED
+		player.velocity = dashDirection * DASH_SPEED
