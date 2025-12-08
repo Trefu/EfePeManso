@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://cejmeec431n7h"]
+
+[ext_resource type="PackedScene" uid="uid://td6egvx022a1" path="res://src/assets/models/weapons/ak47.glb" id="1_mvyui"]
+[ext_resource type="Script" uid="uid://c4ha0usti60ju" path="res://src/scenes/weapons/GunScript.gd" id="1_ycn75"]
+[ext_resource type="AudioStream" uid="uid://dgj13ac62s6v7" path="res://src/assets/sounds/sfx/Ak47Shoot.wav" id="2_ycn75"]
+[ext_resource type="PackedScene" uid="uid://bdipcie1ywui0" path="res://src/scenes/weapons/MuzzleFlash.tscn" id="4_ntrlo"]
+
+[sub_resource type="Animation" id="Animation_4pldj"]
+resource_name = "Equip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.2, -0.2, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.87266463), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7d74u"]
+resource_name = "Unequip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.2, -0.2, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.87266463)]
+}
+
+[sub_resource type="Animation" id="Animation_mvyui"]
+resource_name = "shoot"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.13962634), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.015, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ycn75"]
+_data = {
+&"Equip": SubResource("Animation_4pldj"),
+&"Unequip": SubResource("Animation_7d74u"),
+&"shoot": SubResource("Animation_mvyui")
+}
+
+[node name="Ak47" type="Node3D"]
+script = ExtResource("1_ycn75")
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1.1647441, 0, 0, 0, 1.8218794, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Ak472" parent="Model" instance=ExtResource("1_mvyui")]
+transform = Transform3D(1.3890427, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ycn75")
+volume_db = -9.699
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75309646, 0.05074571, 0)
+target_position = Vector3(100, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ycn75")
+}
+
+[node name="MuzzleFlash" parent="." instance=ExtResource("4_ntrlo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.755163, 0.044747382, 0)
+
+[node name="GPUParticles3D" parent="MuzzleFlash/MuzzleFlash" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7439076, -0.044647068, 0)
+
+[editable path="MuzzleFlash"]

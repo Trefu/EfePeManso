@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=15 format=3 uid="uid://b84l3vpfs2wf"]
 
+[ext_resource type="PackedScene" uid="uid://cejmeec431n7h" path="res://src/scenes/weapons/Ak47.tscn" id="1_jdms6"]
 [ext_resource type="Script" uid="uid://dtlaurplca0w6" path="res://src/scripts/components/MouseComponent.gd" id="3_4u3p5"]
 [ext_resource type="Script" uid="uid://beec6tgspwtrl" path="res://src/scripts/components/DashComponent.gd" id="5_8agy7"]
 [ext_resource type="Script" uid="uid://e5vya247nxwb" path="res://src/scripts/components/AnimationComponent.gd" id="7_g0dk2"]
@@ -136,7 +137,6 @@ blend_point_4/node = SubResource("AnimationNodeAnimation_2xflb")
 blend_point_4/pos = Vector2(1, 0)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tcq83"]
-graph_offset = Vector2(-375.2788, 86.23108)
 nodes/Strafe/node = SubResource("AnimationNodeBlendSpace2D_ubtw0")
 nodes/Strafe/position = Vector2(0, 120)
 node_connections = [&"output", 0, &"Strafe"]
@@ -146,7 +146,7 @@ script = SubResource("GDScript_emtou")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7169906, 0)
-layers = 524289
+layers = 524288
 mesh = SubResource("CapsuleMesh_4u3p5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -158,8 +158,11 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
-transform = Transform3D(0.99999666, 0.0026005378, 0, -0.0026005378, 0.99999666, 0, 0, 0, 1, 0, -0.3817389, 2.1730022)
+transform = Transform3D(0.9999966, 0.0026005376, 0, -0.0026005376, 0.9999966, 0, 0, 0, 1, 0, -0.3817389, 0)
 cull_mask = 524287
+
+[node name="Ak47" parent="head/Camera3D" instance=ExtResource("1_jdms6")]
+transform = Transform3D(-6.790811e-08, -0.0035419837, 3.416194, -1.7659821e-10, 1.3620151, 0.008883972, -1.5535618, 0, -1.493271e-07, 0.29566023, -0.2535025, -0.37)
 
 [node name="MovementComponent" type="Node3D" parent="."]
 

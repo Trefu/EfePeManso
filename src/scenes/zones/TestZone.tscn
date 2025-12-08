@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dsp8uibcmbtp"]
 
-[ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_rk8i1"]
-[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_qn34y"]
-[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/TrefuTestPlayer.tscn" id="3_qn34y"]
-[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/player/TrefuTestPlayer.gd" id="4_gkywo"]
-[ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/music/OstBase.ogg" id="5_b8ikh"]
+[ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
+[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_weu3e"]
+[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/player/TrefuTestPlayer.tscn" id="3_200m8"]
+[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/player/TrefuTestPlayer.gd" id="4_a5a1x"]
+[ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
-panorama = ExtResource("1_rk8i1")
+panorama = ExtResource("1_5nnx6")
 
 [sub_resource type="Sky" id="Sky_filqw"]
 sky_material = SubResource("PanoramaSkyMaterial_gkywo")
@@ -19,7 +19,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8ikh"]
-albedo_texture = ExtResource("2_qn34y")
+albedo_texture = ExtResource("2_weu3e")
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_q65cb"]
@@ -30,7 +30,7 @@ size = Vector3(100, 0.1, 100)
 size = Vector3(100, 0.1, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkywo"]
-albedo_texture = ExtResource("2_qn34y")
+albedo_texture = ExtResource("2_weu3e")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qn34y"]
 viewport_path = NodePath("Mirror/SubViewport")
@@ -129,11 +129,11 @@ size = Vector2i(1152, 648)
 transform = Transform3D(-0.13042232, 0, -0.99145854, 0, 1, 0, 0.99145854, 0, -0.13042232, -9.615648, 6.8161087, -2.6054692)
 fov = 125.4
 
-[node name="TrefuTestPlayer" parent="." instance=ExtResource("3_qn34y")]
+[node name="TrefuTestPlayer" parent="." instance=ExtResource("3_200m8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035081387, 1.559704, 0.01966834)
-script = ExtResource("4_gkywo")
+script = ExtResource("4_a5a1x")
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_b8ikh")
+stream = ExtResource("5_j36nd")
 volume_db = -5.0
 autoplay = true
