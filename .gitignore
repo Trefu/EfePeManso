@@ -8,6 +8,9 @@
 *::*
 *.tmp
 *.tmp.*
+*.gd.uid
+*.tres.uid
+*.tscn.uid
 *.~*
 *~
 .*.swp
