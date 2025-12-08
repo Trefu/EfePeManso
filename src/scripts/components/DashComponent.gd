@@ -1,8 +1,8 @@
 extends Node
 class_name DashComponent
 
-const DASH_DURATION: float = 0.3
-const DASH_SPEED: float = 15.0
+const DASH_DURATION: float = 0.4
+const DASH_SPEED: float = 20.0
 
 var isDashing: bool = false
 var dashTimeRemaining: float = 0.0
@@ -33,5 +33,7 @@ func update_dash(delta: float) -> void:
 	dashTimeRemaining -= delta
 	if dashTimeRemaining <= 0:
 		isDashing = false
+		# Resetear velocidad Y al terminar el dash para evitar momentum vertical
+		player.velocity.y = 0
 	else:
 		player.velocity = dashDirection * DASH_SPEED

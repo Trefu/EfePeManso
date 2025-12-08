@@ -3,14 +3,13 @@ extends CharacterBody3D
 #region Components
 @onready var mouse_component: MouseComponent = $MouseComponent
 @onready var dash_component: DashComponent = $DashComponent
-@onready var animation_component: AnimationComponent = $AnimationComponent
 #endregion
 
 #region Configuration
 const MOVEMENT_SPEED: float = 10.0
 const MOVEMENT_LERP_SPEED: float = 20.0
-const GRAVITY_MULTIPLIER: float = 2.3
-const JUMP_VELOCITY: float = 12.0
+const GRAVITY_MULTIPLIER: float = 2.8
+const JUMP_VELOCITY: float = 14.0
 const COYOTE_TIME_MAX: float = 0.1
 const JUMP_BUFFER_MAX: float = 0.1
 #endregion
@@ -26,34 +25,28 @@ func _ready():
 
 #region Physics Processing
 func _physics_process(delta: float) -> void:
-	# Actualizar coyote time
+
 	if is_on_floor():
 		coyote_time = COYOTE_TIME_MAX
 	else:
 		coyote_time -= delta
 	
-	# Actualizar jump buffer
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_time = JUMP_BUFFER_MAX
 	else:
 		jump_buffer_time -= delta
 	
-	# Procesar gravedad
+
 	handle_gravity(delta)
 	
-	# Procesar dash
 	dash_component.handle_dash(delta)
 	
-	# Procesar movimiento (solo si no está haciendo dash)
 	if not dash_component.isDashing:
 		handle_movement(delta)
 	
-	# Procesar salto con coyote time y jump buffer
 	handle_jump()
 	
-	# Aplicar física
 	move_and_slide()
-	update_animation()
 #endregion
 
 #region Movement
@@ -77,19 +70,8 @@ func handle_gravity(delta: float) -> void:
 
 #region Jump (with Coyote Time & Jump Buffer)
 func handle_jump() -> void:
-	# Si hay jump buffer y coyote time disponible, saltar
 	if jump_buffer_time > 0.0 and coyote_time > 0.0:
 		velocity.y = JUMP_VELOCITY
-		jump_buffer_time = 0.0  # Consumir el buffer
-		coyote_time = 0.0  # Consumir el coyote time
-#endregion
-
-#region Animation
-func update_animation():
-	if animation_component:
-		animation_component.update_from_movement(
-			velocity,
-			is_on_floor(),
-			dash_component.isDashing
-		)
+		jump_buffer_time = 0.0  
+		coyote_time = 0.0  
 #endregion
