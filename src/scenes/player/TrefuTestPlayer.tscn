@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://b84l3vpfs2wf"]
 
 [ext_resource type="PackedScene" uid="uid://cejmeec431n7h" path="res://src/scenes/weapons/Ak47.tscn" id="1_jdms6"]
-[ext_resource type="Script" uid="uid://dtlaurplca0w6" path="res://src/scripts/components/MouseComponent.gd" id="3_4u3p5"]
-[ext_resource type="Script" uid="uid://beec6tgspwtrl" path="res://src/scripts/components/DashComponent.gd" id="5_8agy7"]
-[ext_resource type="Script" uid="uid://e5vya247nxwb" path="res://src/scripts/components/AnimationComponent.gd" id="7_g0dk2"]
+[ext_resource type="Script" uid="uid://6qejo3axnhi2" path="res://src/scripts/components/MouseComponent.gd" id="3_4u3p5"]
+[ext_resource type="Script" uid="uid://b3fqkupt752by" path="res://src/scripts/components/DashComponent.gd" id="5_8agy7"]
+[ext_resource type="Script" uid="uid://bnhfky1yq0u3f" path="res://src/scripts/components/AnimationComponent.gd" id="7_g0dk2"]
 
 [sub_resource type="GDScript" id="GDScript_emtou"]
 script/source = "extends CharacterBody3D

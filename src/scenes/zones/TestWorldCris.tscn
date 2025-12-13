@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmn703xkydkrd"]
+
+[ext_resource type="PackedScene" uid="uid://cbi0saiwp4wu2" path="res://src/scenes/player/CrisTestPlayer.tscn" id="1_hsw1x"]
+[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="1_ievtm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hsw1x"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ievtm"]
+sky_material = SubResource("ProceduralSkyMaterial_hsw1x")
+
+[sub_resource type="Environment" id="Environment_0627f"]
+background_mode = 2
+sky = SubResource("Sky_ievtm")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0627f"]
+albedo_texture = ExtResource("1_ievtm")
+uv1_triplanar = true
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0627f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_0627f")
+
+[node name="PJCris" parent="." instance=ExtResource("1_hsw1x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6130438, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1015451, 6.16623)
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.2239474, -0.36578387, 0.90335476, -0.42204836, -0.87187624, -0.24840926, 0.8784778, -0.32562873, -0.34963292, -5.4173536, 4.348143, 3.3983502)
+use_collision = true
+size = Vector3(10, 2, 3)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0968695, 6.2946773, 0)
+use_collision = true
+size = Vector3(15, 1, 0.1)

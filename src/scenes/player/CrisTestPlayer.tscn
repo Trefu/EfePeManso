@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbi0saiwp4wu2"]
+
+[ext_resource type="Script" uid="uid://c5loipk5d8ksy" path="res://src/scripts/player/CrisTestPlayer.gd" id="1_utr3e"]
+[ext_resource type="Script" uid="uid://yh63pgvmmrke" path="res://src/scenes/player/camera_3d.gd" id="2_jjqnt"]
+[ext_resource type="Script" uid="uid://b3fqkupt752by" path="res://src/scripts/components/DashComponent.gd" id="3_3uip0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d2fpf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_utr3e"]
+
+[node name="PJCris" type="CharacterBody3D"]
+script = ExtResource("1_utr3e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_d2fpf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_utr3e")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5689982, 0)
+script = ExtResource("2_jjqnt")
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("3_3uip0")
