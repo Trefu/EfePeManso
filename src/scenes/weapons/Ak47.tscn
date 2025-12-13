@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://cejmeec431n7h"]
+[gd_scene load_steps=16 format=4 uid="uid://cejmeec431n7h"]
 
 [ext_resource type="Script" uid="uid://c4ha0usti60ju" path="res://src/scenes/weapons/GunScript.gd" id="1_ycn75"]
 [ext_resource type="PackedScene" uid="uid://b20kpvo78ko78" path="res://src/assets/models/weapons/kenney-blasters/blaster-g.fbx" id="2_ntrlo"]
 [ext_resource type="Texture2D" uid="uid://c7qetv7qv56i4" path="res://src/assets/models/weapons/kenney-blasters/Textures/colormap.png" id="3_hgjql"]
 [ext_resource type="AudioStream" uid="uid://brbec1lntf52b" path="res://src/assets/sounds/sfx/zap.wav" id="4_hgjql"]
 [ext_resource type="PackedScene" uid="uid://bdipcie1ywui0" path="res://src/scenes/weapons/MuzzleFlash.tscn" id="4_ntrlo"]
+[ext_resource type="AudioStream" uid="uid://cdixb5s5auvdm" path="res://src/assets/sounds/sfx/Pa.wav" id="5_0l5dt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr30q"]
 resource_name = "colormap"
@@ -150,7 +151,7 @@ _data = {
 script = ExtResource("1_ycn75")
 
 [node name="Model" type="Node3D" parent="."]
-transform = Transform3D(1.1647441, 0, 0, 0, 1.8218794, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.74868315, 1.3956406, 0, -0.89224577, 1.1710815, 0, 0, 0, 1, -0.2, -0.2, 0)
 
 [node name="blaster-g" parent="Model" instance=ExtResource("2_ntrlo")]
 transform = Transform3D(-3.752875e-08, 0, -1.0000001, 0, 0.5488837, 0, 0.85855764, 0, -4.371139e-08, 0.03500083, 0.051887274, 0)
@@ -167,6 +168,9 @@ volume_db = -1.843
 stream = SubResource("AudioStreamWAV_hgjql")
 volume_db = -2.469
 
+[node name="ShotSound3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0l5dt")
+
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44727886, 0.19534355, 0)
 target_position = Vector3(100, 0, 0)
@@ -175,7 +179,7 @@ target_position = Vector3(100, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_ycn75")
 }
-speed_scale = 3.5
+speed_scale = 2.0
 
 [node name="MuzzleFlash" parent="." instance=ExtResource("4_ntrlo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.755163, 0.044747382, 0)
