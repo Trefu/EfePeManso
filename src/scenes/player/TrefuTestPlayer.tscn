@@ -162,7 +162,7 @@ transform = Transform3D(0.9999966, 0.0026005376, 0, -0.0026005376, 0.9999966, 0,
 cull_mask = 524287
 
 [node name="Ak47" parent="head/Camera3D" instance=ExtResource("1_jdms6")]
-transform = Transform3D(-6.790811e-08, -0.0035419837, 3.416194, -1.7659821e-10, 1.3620151, 0.008883972, -1.5535618, 0, -1.493271e-07, 0.29566023, -0.2535025, -0.37)
+transform = Transform3D(-6.790811e-08, -0.0035419837, 3.4161937, -1.7659822e-10, 1.3620151, 0.008883972, -1.5535618, 0, -1.493271e-07, 0.536, -0.624, -0.996)
 
 [node name="MovementComponent" type="Node3D" parent="."]
 

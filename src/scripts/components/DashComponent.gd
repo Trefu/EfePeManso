@@ -1,8 +1,8 @@
 extends Node
 class_name DashComponent
 
-const DASH_DURATION: float = 0.4
-const DASH_SPEED: float = 20.0
+const DASH_DURATION: float = 0.3
+const DASH_SPEED: float = 40.0
 
 var isDashing: bool = false
 var dashTimeRemaining: float = 0.0

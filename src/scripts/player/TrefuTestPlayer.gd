@@ -21,7 +21,7 @@ const JUMP_BUFFER_MAX: float = 0.1          # Time window before landing where j
 
 # Headbob Configuration
 const HEADBOB_SPEED: float = 13.0           # Speed of head bobbing animation
-const HEADBOB_AMOUNT: float = 0.05          # Maximum intensity of head bobbing movement
+const HEADBOB_AMOUNT: float = 0.07        # Maximum intensity of head bobbing movement
 const HEADBOB_SPRINT_MULTIPLIER: float = 1.5 # Future: multiplier for sprint headbob intensity
 #endregion
 
