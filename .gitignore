@@ -43,3 +43,5 @@ export_presets.cfg
 # Logs and debug
 logs/
 *.log
+
+project.godot
