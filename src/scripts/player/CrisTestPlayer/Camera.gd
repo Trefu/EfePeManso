@@ -3,17 +3,16 @@ extends Camera3D
 const MOUSE_SENSITIVITY: float = 0.06
 var head: Node3D
 var player: CharacterBody3D
-var camera: Camera3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_parent()
-	camera = self
+	head = get_parent()
+	player = get_parent().get_parent()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 
 func _unhandled_input(event: InputEvent):
 	# ESC para liberar mouse	
@@ -30,5 +29,5 @@ func _unhandled_input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		player.rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
-		camera.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
