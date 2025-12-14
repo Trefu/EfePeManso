@@ -1,107 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=6 format=3 uid="uid://b84l3vpfs2wf"]
 
-[ext_resource type="PackedScene" uid="uid://cejmeec431n7h" path="res://src/scenes/weapons/Ak47.tscn" id="1_jdms6"]
-[ext_resource type="Script" uid="uid://6qejo3axnhi2" path="res://src/scripts/components/MouseComponent.gd" id="3_4u3p5"]
-[ext_resource type="Script" uid="uid://b3fqkupt752by" path="res://src/scripts/components/DashComponent.gd" id="5_8agy7"]
-[ext_resource type="Script" uid="uid://bnhfky1yq0u3f" path="res://src/scripts/components/AnimationComponent.gd" id="7_g0dk2"]
-
-[sub_resource type="GDScript" id="GDScript_emtou"]
-script/source = "extends CharacterBody3D
-
-#region Components
-@onready var mouse_component: MouseComponent = $MouseComponent
-@onready var dash_component: DashComponent = $DashComponent
-@onready var animation_component: AnimationComponent = $AnimationComponent
-#endregion
-
-#region Configuration
-const MOVEMENT_SPEED: float = 18.0
-const MOVEMENT_LERP_SPEED: float = 6.0
-const GRAVITY_MULTIPLIER: float = 2.0
-const JUMP_VELOCITY: float = 11.0
-const COYOTE_TIME_MAX: float = 0.1  # 100ms
-const JUMP_BUFFER_MAX: float = 0.1  # 100ms
-#endregion
-
-#region Movement & Physics
-var direction: Vector3 = Vector3.ZERO
-var coyote_time: float = 0.0
-var jump_buffer_time: float = 0.0
-#endregion
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-#region Physics Processing
-func _physics_process(delta: float) -> void:
-	# Actualizar coyote time
-	if is_on_floor():
-		coyote_time = COYOTE_TIME_MAX
-	else:
-		coyote_time -= delta
-	
-	# Actualizar jump buffer
-	if Input.is_action_just_pressed(\"jump\"):
-		jump_buffer_time = JUMP_BUFFER_MAX
-	else:
-		jump_buffer_time -= delta
-	
-	# Procesar gravedad
-	handle_gravity(delta)
-	
-	# Procesar dash
-	dash_component.handle_dash(delta)
-	
-	# Procesar movimiento (solo si no está haciendo dash)
-	if not dash_component.isDashing:
-		handle_movement(delta)
-	
-	# Procesar salto con coyote time y jump buffer
-	handle_jump()
-	
-	# Aplicar física
-	move_and_slide()
-	update_animation()
-#endregion
-
-#region Movement
-func handle_movement(delta: float) -> void:
-	var input_dir := Input.get_vector(\"left\", \"right\", \"forward\", \"backward\")
-	direction = lerp(direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta * MOVEMENT_LERP_SPEED)
-	
-	if direction:
-		velocity.x = direction.x * MOVEMENT_SPEED
-		velocity.z = direction.z * MOVEMENT_SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, MOVEMENT_SPEED)
-		velocity.z = move_toward(velocity.z, 0, MOVEMENT_SPEED)
-#endregion
-
-#region Gravity
-func handle_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * GRAVITY_MULTIPLIER * delta
-#endregion
-
-#region Jump (with Coyote Time & Jump Buffer)
-func handle_jump() -> void:
-	# Si hay jump buffer y coyote time disponible, saltar
-	if jump_buffer_time > 0.0 and coyote_time > 0.0:
-		velocity.y = JUMP_VELOCITY
-		jump_buffer_time = 0.0  # Consumir el buffer
-		coyote_time = 0.0  # Consumir el coyote time
-#endregion
-
-#region Animation
-func update_animation():
-	if animation_component:
-		animation_component.update_from_movement(
-			velocity,
-			is_on_floor(),
-			dash_component.isDashing
-		)
-#endregion
-"
+[ext_resource type="PackedScene" uid="uid://cejmeec431n7h" path="res://src/scenes/weapons/BlasterG.tscn" id="1_jdms6"]
+[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_kof2i"]
+[ext_resource type="Script" uid="uid://pba6g5c4wq4p" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_kof2i"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
 
@@ -109,40 +10,8 @@ func update_animation():
 radius = 0.25656128
 height = 0.99435425
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g0dk2"]
-animation = &"Running"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubtw0"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tcq83"]
-animation = &"Running Backward"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_umdd1"]
-animation = &"Left Strafe"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2xflb"]
-animation = &"Right Strafe"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ubtw0"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_g0dk2")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ubtw0")
-blend_point_1/pos = Vector2(0, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_tcq83")
-blend_point_2/pos = Vector2(0, -1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_umdd1")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_4/node = SubResource("AnimationNodeAnimation_2xflb")
-blend_point_4/pos = Vector2(1, 0)
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tcq83"]
-nodes/Strafe/node = SubResource("AnimationNodeBlendSpace2D_ubtw0")
-nodes/Strafe/position = Vector2(0, 120)
-node_connections = [&"output", 0, &"Strafe"]
-
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
-script = SubResource("GDScript_emtou")
+script = ExtResource("1_kof2i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7169906, 0)
@@ -153,33 +22,14 @@ mesh = SubResource("CapsuleMesh_4u3p5")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.70803833, 0)
 shape = SubResource("CapsuleShape3D_bponb")
 
-[node name="head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="HeadCamera" type="Camera3D" parent="Head"]
 transform = Transform3D(0.9999966, 0.0026005376, 0, -0.0026005376, 0.9999966, 0, 0, 0, 1, 0, -0.3817389, 0)
 cull_mask = 524287
+script = ExtResource("2_kof2i")
 
-[node name="Ak47" parent="head/Camera3D" instance=ExtResource("1_jdms6")]
-transform = Transform3D(-6.790811e-08, -0.0035419837, 3.4161937, -1.7659822e-10, 1.3620151, 0.008883972, -1.5535618, 0, -1.493271e-07, 0.536, -0.624, -0.996)
-
-[node name="MovementComponent" type="Node3D" parent="."]
-
-[node name="MouseComponent" type="Node3D" parent="."]
-script = ExtResource("3_4u3p5")
-
-[node name="JumpComponent" type="Node3D" parent="."]
-
-[node name="GravityComponent" type="Node3D" parent="."]
-
-[node name="DashComponent" type="Node3D" parent="."]
-script = ExtResource("5_8agy7")
-
-[node name="AnimationComponent" type="Node3D" parent="." node_paths=PackedStringArray("animation_tree")]
-script = ExtResource("7_g0dk2")
-animation_tree = NodePath("../AnimationTree")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_tcq83")
-parameters/Strafe/blend_position = Vector2(0, -2)
+[node name="Weapon" parent="Head/HeadCamera" instance=ExtResource("1_jdms6")]
+transform = Transform3D(-6.790811e-08, -0.0035419837, 3.4161935, -1.7659824e-10, 1.3620151, 0.008883972, -1.5535618, 0, -1.493271e-07, 0.53599995, -0.624, -0.996)

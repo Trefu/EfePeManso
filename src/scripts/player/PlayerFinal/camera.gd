@@ -1,14 +1,12 @@
-extends Node
-class_name MouseComponent
+extends Camera3D
 
 const MOUSE_SENSITIVITY: float = 0.06
-
 var head: Node3D
-var player: CharacterBody3D
+@onready var player: CharacterBody3D = get_parent()
+@onready var camera: Camera3D = self
 
-func _ready() -> void:
-	player = get_parent()
-	head = player.get_node("%head")
+func _process(_delta: float) -> void:
+	pass
 
 func _unhandled_input(event: InputEvent):
 	# ESC para liberar mouse	
@@ -25,5 +23,5 @@ func _unhandled_input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		player.rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
-		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+		camera.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))

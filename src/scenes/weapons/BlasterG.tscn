@@ -1,16 +1,16 @@
 [gd_scene load_steps=16 format=4 uid="uid://cejmeec431n7h"]
 
-[ext_resource type="Script" uid="uid://c4ha0usti60ju" path="res://src/scenes/weapons/GunScript.gd" id="1_ycn75"]
-[ext_resource type="PackedScene" uid="uid://b20kpvo78ko78" path="res://src/assets/models/weapons/kenney-blasters/blaster-g.fbx" id="2_ntrlo"]
-[ext_resource type="Texture2D" uid="uid://c7qetv7qv56i4" path="res://src/assets/models/weapons/kenney-blasters/Textures/colormap.png" id="3_hgjql"]
-[ext_resource type="AudioStream" uid="uid://brbec1lntf52b" path="res://src/assets/sounds/sfx/zap.wav" id="4_hgjql"]
-[ext_resource type="PackedScene" uid="uid://bdipcie1ywui0" path="res://src/scenes/weapons/MuzzleFlash.tscn" id="4_ntrlo"]
-[ext_resource type="AudioStream" uid="uid://cdixb5s5auvdm" path="res://src/assets/sounds/sfx/Pa.wav" id="5_0l5dt"]
+[ext_resource type="Script" uid="uid://c4ha0usti60ju" path="res://src/scenes/weapons/GunScript.gd" id="1_eyduw"]
+[ext_resource type="PackedScene" uid="uid://b20kpvo78ko78" path="res://src/assets/models/weapons/kenney-blasters/blaster-g.fbx" id="2_b2qi6"]
+[ext_resource type="Texture2D" uid="uid://c7qetv7qv56i4" path="res://src/assets/models/weapons/kenney-blasters/Textures/colormap.png" id="3_ufq02"]
+[ext_resource type="AudioStream" uid="uid://brbec1lntf52b" path="res://src/assets/sounds/sfx/zap.wav" id="4_u3d5t"]
+[ext_resource type="AudioStream" uid="uid://cdixb5s5auvdm" path="res://src/assets/sounds/sfx/Pa.wav" id="5_ovv58"]
+[ext_resource type="PackedScene" uid="uid://bdipcie1ywui0" path="res://src/scenes/weapons/MuzzleFlash.tscn" id="6_6myfd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr30q"]
 resource_name = "colormap"
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_hgjql")
+albedo_texture = ExtResource("3_ufq02")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_k0mmb"]
@@ -133,7 +133,7 @@ tracks/1/path = NodePath("Model:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.25),
+"times": PackedFloat32Array(0, 0.15, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.015, 0, 0), Vector3(0, 0, 0)]
@@ -147,21 +147,21 @@ _data = {
 &"shoot": SubResource("Animation_mvyui")
 }
 
-[node name="Ak47" type="Node3D"]
-script = ExtResource("1_ycn75")
+[node name="main" type="Node3D"]
+script = ExtResource("1_eyduw")
 
 [node name="Model" type="Node3D" parent="."]
-transform = Transform3D(0.74868315, 1.3956406, 0, -0.89224577, 1.1710815, 0, 0, 0, 1, -0.2, -0.2, 0)
+transform = Transform3D(1.1647441, 0, 0, 0, 1.8218794, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="blaster-g" parent="Model" instance=ExtResource("2_ntrlo")]
-transform = Transform3D(-3.752875e-08, 0, -1.0000001, 0, 0.5488837, 0, 0.85855764, 0, -4.371139e-08, 0.03500083, 0.051887274, 0)
+[node name="blaster-g" parent="Model" instance=ExtResource("2_b2qi6")]
+transform = Transform3D(-3.492612e-08, 0.14206155, -0.9659258, 9.7131565e-09, 0.530181, 0.258819, 0.85855776, -2.1905577e-10, -4.222196e-08, -0.24410152, 0.13094682, 0)
 
 [node name="blaster-g" parent="Model/blaster-g" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1.0000005, 0, 0, 0, 0.9163633, -0.40034908, 0, 0.40034926, 0.9163629, 0, 0, -0.328)
 mesh = SubResource("ArrayMesh_0l5dt")
 
 [node name="ShotSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_hgjql")
+stream = ExtResource("4_u3d5t")
 volume_db = -1.843
 
 [node name="ShotSound2" type="AudioStreamPlayer" parent="."]
@@ -169,7 +169,7 @@ stream = SubResource("AudioStreamWAV_hgjql")
 volume_db = -2.469
 
 [node name="ShotSound3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_0l5dt")
+stream = ExtResource("5_ovv58")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44727886, 0.19534355, 0)
@@ -181,7 +181,7 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="MuzzleFlash" parent="." instance=ExtResource("4_ntrlo")]
+[node name="MuzzleFlash" parent="." instance=ExtResource("6_6myfd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.755163, 0.044747382, 0)
 
 [node name="GPUParticles3D" parent="MuzzleFlash/MuzzleFlash" index="0"]

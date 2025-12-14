@@ -1,0 +1,24 @@
+extends Node
+
+const MOUSE_SENSITIVITY: float = 0.06
+
+@onready var player = find_parent("TrefuTestPlayer")
+@onready var head: Node3D = player.get_node("%Head")
+
+func _unhandled_input(event: InputEvent):
+	# ESC para liberar mouse	
+	if event.is_action_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Click para recapturar
+	if event is InputEventMouseButton and event.pressed:
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		player.rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
+		head.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))

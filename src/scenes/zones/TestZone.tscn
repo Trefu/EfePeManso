@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsp8uibcmbtp"]
+[gd_scene load_steps=14 format=3 uid="uid://dsp8uibcmbtp"]
 
 [ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
 [ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_weu3e"]
-[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/player/TrefuTestPlayer.tscn" id="3_200m8"]
-[ext_resource type="Script" uid="uid://dn64oey2hwiom" path="res://src/scripts/player/TrefuTestPlayer.gd" id="4_a5a1x"]
-[ext_resource type="AudioStream" uid="uid://c66wf63g76gti" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
+[ext_resource type="PackedScene" uid="uid://cbi0saiwp4wu2" path="res://src/scenes/player/CrisTestPlayer.tscn" id="4_wgu1d"]
+[ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
 panorama = ExtResource("1_5nnx6")
@@ -135,14 +134,9 @@ size = Vector2i(1152, 648)
 transform = Transform3D(-0.119994715, -0.3918072, -0.9121888, -0.0511004, 0.9200473, -0.38846058, 0.99145854, 3.8115537e-09, -0.13042231, -8.46548, 2.527135, -2.6054692)
 fov = 99.9
 
-[node name="TrefuTestPlayer" parent="." instance=ExtResource("3_200m8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035081387, 1.559704, 0.01966834)
-script = ExtResource("4_a5a1x")
-
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_j36nd")
 volume_db = -12.8
 autoplay = true
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.944527, 0, 0)
+[node name="PJCris" parent="." instance=ExtResource("4_wgu1d")]
