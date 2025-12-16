@@ -44,4 +44,4 @@ export_presets.cfg
 logs/
 *.log
 
-project.godot
+override.cfg
