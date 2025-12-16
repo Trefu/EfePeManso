@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://lbn4bi8pf7fu"]
+
+[ext_resource type="PackedScene" uid="uid://6cs7c7lv5dwe" path="res://src/assets/models/weapons/kenney-blasters/target-small.fbx" id="1_reeg4"]
+
+[node name="main" type="Node3D"]
+
+[node name="target-small" parent="." instance=ExtResource("1_reeg4")]
+transform = Transform3D(1, 0, 0, 0, 2.9399998, 0, 0, 0, 3, 0, 0.3, 0)
+
+[node name="target-small" parent="target-small" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1.6, 0, 0, 0, 1.7, 0, 0.068027206, 0)
+
+[editable path="target-small"]
