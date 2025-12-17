@@ -33,6 +33,8 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
+	var weapon = $Head/WeaponHolder/PistolBlaster
+
 	if is_on_floor():
 		coyote_time = COYOTE_TIME_MAX
 		air_jumps = 0

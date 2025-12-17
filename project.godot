@@ -15,13 +15,15 @@ run/main_scene="uid://bmn703xkydkrd"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[display]
-
-window/size/mode=2
-
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://src/scenes/Player/Weapons/": "red"
+}
 
 [input]
 

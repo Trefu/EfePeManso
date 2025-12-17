@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds4kx3f3lkaxt"]
+
+[ext_resource type="PackedScene" uid="uid://cuy31uppxrr1t" path="res://src/assets/models/weapons/kenney-blasters/blaster-b.fbx" id="1_88sxp"]
+[ext_resource type="Script" uid="uid://dl6v2awdjh8cw" path="res://src/scenes/Player/Weapons/Weapon.gd" id="1_nhund"]
+[ext_resource type="AudioStream" uid="uid://66o4nnj1rqm7" path="res://src/assets/sounds/sfx/PistolBlaster.wav" id="2_nhund"]
+
+[node name="PistolBlaster" type="Node3D"]
+script = ExtResource("1_nhund")
+
+[node name="blaster-b" parent="." instance=ExtResource("1_88sxp")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blaster-b"]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="blaster-b"]
+stream = ExtResource("2_nhund")
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+
+[editable path="blaster-b"]

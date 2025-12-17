@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=6 format=3 uid="uid://b84l3vpfs2wf"]
 
 [ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_n7hh6"]
 [ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_n7hh6"]
+[ext_resource type="PackedScene" uid="uid://ds4kx3f3lkaxt" path="res://src/scenes/Player/Weapons/Pistol/PistolBlaster.tscn" id="3_pcc2o"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
 
@@ -23,9 +24,14 @@ shape = SubResource("CapsuleShape3D_bponb")
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 
 [node name="HeadCamera" type="Camera3D" parent="Head"]
-transform = Transform3D(0.9999966, 0.0026005376, 0, -0.0026005376, 0.9999966, 0, 0, 0, 1, 0, -0.3817389, 0)
+transform = Transform3D(0.99999666, 0.0026005378, 0, -0.0026005378, 0.99999666, 0, 0, 0, 1, 0, 0.15223491, -0.30215687)
 cull_mask = 524287
 script = ExtResource("2_n7hh6")
+
+[node name="WeaponHolder" type="Node3D" parent="Head/HeadCamera"]
+transform = Transform3D(0.9999955, -0.0026005376, 0, 0.0026005376, 0.9999955, 0, 0, 0, 1, 0.23785724, -0.10277629, -0.32663816)
+
+[node name="PistolBlaster" parent="Head/HeadCamera/WeaponHolder" instance=ExtResource("3_pcc2o")]
