@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbi0saiwp4wu2"]
 
 [ext_resource type="Script" uid="uid://dnuuf0u76i0ij" path="res://src/scripts/player/CrisTestPlayer/CrisTestPlayer.gd" id="1_jjqnt"]
-[ext_resource type="Script" uid="uid://bt1ghjmsdnnbl" path="res://src/scripts/player/CrisTestPlayer/Camera.gd" id="2_jjqnt"]
+[ext_resource type="Script" uid="uid://djhusimduu6oj" path="res://src/scripts/player/CrisTestPlayer/Camera.gd" id="2_jjqnt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d2fpf"]
 
@@ -36,3 +36,8 @@ script = ExtResource("2_jjqnt")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
