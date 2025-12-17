@@ -1,6 +1,11 @@
 extends CharacterBody3D
 
 @onready var camera: Camera3D = $Head/HeadCamera
+@onready var head: Node3D = $Head
+@onready var weapon_holder: Node3D = $Head/WeaponHolder
+@onready var current_weapon = $Head/WeaponHolder/Weapon
+
+const MOUSE_SENSITIVITY: float = 0.002
 
 const MOVEMENT_SPEED: float = 10.0
 const MOVEMENT_LERP_SPEED: float = 20.0
@@ -89,3 +94,22 @@ func handle_headbob(delta: float) -> void:
 	headbob_offset.x = cos(headbob_time) * headbob_intensity * 0.5
 	
 	camera.transform.origin = headbob_offset
+
+func _process(_delta):
+	if Input.is_action_pressed("fire") and current_weapon:
+		current_weapon.fire()
+
+func _input(event):
+	if event.is_action_pressed("reload") and current_weapon:
+		current_weapon.reload()
+	
+	if event.is_action_pressed("toggle_mouse_capture"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+		var rotation_change = -event.relative.y * MOUSE_SENSITIVITY
+		head.rotation.x = clamp(head.rotation.x + rotation_change, -PI/2, PI/2)

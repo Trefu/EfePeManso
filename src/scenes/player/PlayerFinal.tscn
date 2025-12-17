@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfew2pql4vbju"]
 
-[ext_resource type="Script" uid="uid://clpatffujry1r" path="res://src/scripts/player/PlayerFinal/PlayerFinal.gd" id="1_jwon0"]
-[ext_resource type="Script" uid="uid://bt1ghjmsdnnbl" path="res://src/scripts/player/CrisTestPlayer/Camera.gd" id="2_c6bmp"]
+[ext_resource type="Script" uid="uid://clpatffujry1r" path="res://src/Weapons/player/PlayerFinal/PlayerFinal.gd" id="1_jwon0"]
+[ext_resource type="Script" uid="uid://bt1ghjmsdnnbl" path="res://src/Weapons/player/CrisTestPlayer/Camera.gd" id="2_c6bmp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b84l3vpfs2wf"]
 
-[ext_resource type="Script" uid="uid://bp7rio2w35mjt" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_kof2i"]
-[ext_resource type="Script" uid="uid://pba6g5c4wq4p" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_kof2i"]
+[ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_n7hh6"]
+[ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_n7hh6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
 
@@ -10,7 +10,7 @@ radius = 0.25656128
 height = 0.99435425
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
-script = ExtResource("1_kof2i")
+script = ExtResource("1_n7hh6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7169906, 0)
@@ -28,4 +28,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="HeadCamera" type="Camera3D" parent="Head"]
 transform = Transform3D(0.9999966, 0.0026005376, 0, -0.0026005376, 0.9999966, 0, 0, 0, 1, 0, -0.3817389, 0)
 cull_mask = 524287
-script = ExtResource("2_kof2i")
+script = ExtResource("2_n7hh6")
