@@ -50,3 +50,8 @@ size = Vector3(10, 2, 3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0968695, 6.2946773, 0)
 use_collision = true
 size = Vector3(15, 1, 0.1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.60189867, 0.7985725, 0, -0.7985725, 0.60189867, 0, 0, 0, 1, 15.712019, 10.212589, 0.070917845)
+use_collision = true
+size = Vector3(1, 8.841537, 0.9824219)

@@ -4,13 +4,12 @@ extends CharacterBody3D
 @onready var standing_collision_shape_3d: CollisionShape3D = $StandingCollisionShape3D
 @onready var crouching_collision_shape_3d: CollisionShape3D = $CrouchingCollisionShape3D
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
-@onready var coyote_timer: Timer = $CoyoteTimer
 
 var current_speed = 0.0
 const RUNNING_SPEED = 7.0
 const CROUCHING_SPEED = 4.0
 const JUMP_SPEED = 10.0
-const DOUBLE_JUMP_SPEED = 7.5
+const EXTRA_JUMP_SPEED = 7.5
 const LERP_SPEED = 8.0
 
 var direction := Vector3.ZERO
@@ -22,28 +21,30 @@ const CROUCH_DEPTH = -0.5
 const STANDING_HEAD_HEIGHT = 1.5
 
 var jump_count = 0
-const JUMP_AMOUNT = 2
+var max_jumps = 2
 
-var coyote_time_active := true
+var coyote_time = 0.0
+const MAX_COYOTE_TIME = 1.0
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += gravity * delta * GRAVITY_MULTIPLIER
-		if coyote_timer.is_stopped():
-			coyote_timer.start()
+		coyote_time -= delta
 	else:
-		coyote_time_active = true
-		coyote_timer.stop()
-
+		coyote_time = MAX_COYOTE_TIME
+	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and coyote_time_active:
+	if Input.is_action_just_pressed("jump") and coyote_time > 0:
 		velocity.y = JUMP_SPEED
 		jump_count = 1
-		coyote_time_active = false
-	elif Input.is_action_just_pressed("jump") and !is_on_floor() and jump_count < JUMP_AMOUNT:
-		velocity.y = DOUBLE_JUMP_SPEED
+		coyote_time = 0
+		print("Salto comun")
+	elif Input.is_action_just_pressed("jump") and !is_on_floor() and jump_count < max_jumps:
+		velocity.y = EXTRA_JUMP_SPEED
 		jump_count += 1
+		print("Salto extra")
 	elif Input.is_action_pressed("crouch") and is_on_floor():
 		current_speed = CROUCHING_SPEED
 		standing_collision_shape_3d.disabled = true
@@ -69,5 +70,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 #crear un handler de salto con coyote time y buffer
 
-func _on_coyote_timer_timeout() -> void:
-	coyote_time_active = false
+#func _on_coyote_timer_timeout() -> void:
+	#coyote_time_active = false
