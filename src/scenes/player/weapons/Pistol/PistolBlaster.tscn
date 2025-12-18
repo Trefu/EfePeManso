@@ -18,7 +18,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.18486528, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -72,7 +72,6 @@ script = ExtResource("1_nhund")
 weapon_data = ExtResource("2_v3d42")
 
 [node name="blaster-b" parent="." instance=ExtResource("1_88sxp")]
-transform = Transform3D(1, 0, 0, 0, 0.9829609, -0.1838141, 0, 0.1838141, 0.9829609, 0, 0, 0)
 
 [node name="Muzzle" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
@@ -85,7 +84,7 @@ libraries = {
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_nhund")
-volume_db = -9.0
+volume_db = -25.0
 pitch_scale = 1.4
 
 [node name="MuzzleFlash" parent="." instance=ExtResource("5_xa3ap")]

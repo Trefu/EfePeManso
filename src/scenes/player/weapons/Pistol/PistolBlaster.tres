@@ -7,5 +7,5 @@ script = ExtResource("1_hdf6c")
 fire_rate = 0.3
 magazine_size = 10
 reload_time = 1.5
-spread = 0.03
+spread = 0.009
 metadata/_custom_type_script = "uid://b7p23636o2eoc"
