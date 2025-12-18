@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var camera: Camera3D = $Head/HeadCamera
 @onready var head: Node3D = $Head
 @onready var weapon_holder: Node3D = $Head/WeaponHolder
-@onready var current_weapon = $Head/WeaponHolder/Weapon
+var current_weapon 
 
 const MOUSE_SENSITIVITY: float = 0.002
 
@@ -31,9 +31,9 @@ var headbob_intensity: float = 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	current_weapon = $Head/WeaponHolder/Weapon
 
 func _physics_process(delta: float) -> void:
-	var weapon = $Head/WeaponHolder/PistolBlaster
 
 	if is_on_floor():
 		coyote_time = COYOTE_TIME_MAX
@@ -98,6 +98,7 @@ func handle_headbob(delta: float) -> void:
 	camera.transform.origin = headbob_offset
 
 func _process(_delta):
+	
 	if Input.is_action_pressed("fire") and current_weapon:
 		current_weapon.fire()
 
@@ -105,7 +106,7 @@ func _input(event):
 	if event.is_action_pressed("reload") and current_weapon:
 		current_weapon.reload()
 	
-	if event.is_action_pressed("toggle_mouse_capture"):
+	if event.is_action_pressed("esc"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:

@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcr3xfowh2pci"]
+
+[ext_resource type="Texture2D" uid="uid://wxd40e4r78ar" path="res://src/assets/textures/PNG (Transparent)/scorch_03.png" id="1_fu00a"]
+
+[sub_resource type="Gradient" id="Gradient_fu00a"]
+offsets = PackedFloat32Array(0, 0.5205882, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.48235294, 0.48235294, 0.48235294, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fy56f"]
+gradient = SubResource("Gradient_fu00a")
+
+[sub_resource type="Curve" id="Curve_fy56f"]
+_limits = [0.0, 25.0, 0.0, 1.0]
+_data = [Vector2(0, 25), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_lnm5l"]
+curve = SubResource("Curve_fy56f")
+
+[sub_resource type="Curve" id="Curve_fu00a"]
+_limits = [0.0, 0.4, 0.0, 1.0]
+_data = [Vector2(0, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 0.4), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fy56f"]
+curve = SubResource("Curve_fu00a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fu00a"]
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_fy56f")
+color = Color(0.7545337, 0.29134825, 0.0045676082, 1)
+color_ramp = SubResource("GradientTexture1D_fy56f")
+emission_curve = SubResource("CurveTexture_lnm5l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fy56f"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.77881634, 0.77881616, 1.1551381e-06, 1)
+albedo_texture = ExtResource("1_fu00a")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_lnm5l"]
+material = SubResource("StandardMaterial3D_fy56f")
+
+[node name="MuzzleFlash" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.09999999999999999
+one_shot = true
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_fu00a")
+draw_pass_1 = SubResource("QuadMesh_lnm5l")

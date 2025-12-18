@@ -5,6 +5,7 @@ class_name Weapon extends Node3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 @onready var muzzle: Marker3D = $Muzzle
+@onready var muzzle_flash_particles: GPUParticles3D = $MuzzleFlash/GPUParticles3D
 
 var can_fire: bool = true
 var current_ammo: int = 0
@@ -14,10 +15,11 @@ func _ready():
 		current_ammo = weapon_data.magazine_size
 
 func fire():
+
 	if not can_fire or current_ammo <= 0:
 		return false
 	
-	current_ammo -= 1
+	#current_ammo -= 1
 	can_fire = false
 	
 	get_tree().create_timer(weapon_data.fire_rate).timeout.connect(
@@ -32,7 +34,9 @@ func fire():
 
 func _shoot_raycast():
 	var camera = get_viewport().get_camera_3d()
+
 	if not camera:
+		print('camara')
 		return
 	
 	var from = camera.global_position
@@ -62,39 +66,26 @@ func _handle_hit(result: Dictionary):
 	_spawn_hit_effect(result.position)
 
 func _play_fire_effects():
-	audio_player.play()
 	
+	if audio_player:
+		audio_player.play()
+
+	if animation_player.is_playing():
+		animation_player.stop()
 	if animation_player.has_animation("fire"):
 		animation_player.play("fire")
 	
-	_create_simple_muzzle_flash()
+	_show_muzzle_flash()
 
-func _create_simple_muzzle_flash():
-	var particles = GPUParticles3D.new()
-	particles.amount = 8
-	particles.lifetime = 0.1
-	particles.explosiveness = 1.0
+func _show_muzzle_flash():
+	print("Activando flash")
 	
-	var material = ParticleProcessMaterial.new()
-	material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	material.emission_box_extents = Vector3(0.1, 0.1, 0.1)
-	material.gravity = Vector3(0, 0, 0)
-	particles.process_material = material
-	
-	muzzle.add_child(particles)
-	particles.emitting = true
-	get_tree().create_timer(0.2).timeout.connect(particles.queue_free)
+	if muzzle_flash_particles:
+		muzzle_flash_particles.restart()
+		muzzle_flash_particles.emitting = true
 
-func _spawn_hit_effect(position: Vector3):
-	var particles = GPUParticles3D.new()
-	particles.amount = 4
-	particles.lifetime = 0.3
-	
-	get_tree().root.add_child(particles)
-	particles.global_position = position
-	particles.emitting = true
-	
-	get_tree().create_timer(0.5).timeout.connect(particles.queue_free)
+func _spawn_hit_effect(_position: Vector3):
+	print('efectos hit')
 
 func reload():
 	current_ammo = weapon_data.magazine_size
