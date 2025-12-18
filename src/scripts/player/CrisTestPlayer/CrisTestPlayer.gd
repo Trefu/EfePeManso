@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		standing_collision_shape_3d.disabled = true
 		crouching_collision_shape_3d.disabled = false
 		head.position.y = lerp(head.position.y, STANDING_HEAD_HEIGHT + CROUCH_DEPTH, delta * LERP_SPEED)
-	elif Input.is_action_just_pressed("dash") and dash_cooldown == 0.0:
+	elif _can_dash():
 		direction = get_direction(delta)
 		if direction:
 			is_dashing = true
@@ -113,3 +113,6 @@ func move(movement_direction: Vector3) -> void:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 		velocity.z = move_toward(velocity.z, 0, current_speed)
 	move_and_slide()
+
+func _can_dash() -> bool:
+	return Input.is_action_just_pressed("dash") and dash_cooldown == 0.0
