@@ -205,7 +205,6 @@ metadata/_edit_lock_ = true
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_j36nd")
 volume_db = -12.8
-autoplay = true
 
 [node name="StaticEnviroment" type="Node" parent="."]
 

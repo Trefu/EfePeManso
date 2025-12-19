@@ -73,9 +73,6 @@ weapon_data = ExtResource("2_v3d42")
 
 [node name="blaster-b" parent="." instance=ExtResource("1_88sxp")]
 
-[node name="Muzzle" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../blaster-b")
 libraries = {
@@ -87,7 +84,9 @@ stream = ExtResource("2_nhund")
 volume_db = -25.0
 pitch_scale = 1.4
 
+[node name="MuzzlePosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010738403, -0.2799272)
+
 [node name="MuzzleFlash" parent="." instance=ExtResource("5_xa3ap")]
-transform = Transform3D(0.6792716, 0, 0, 0, 0.85745853, 0, 0, 0, 5.2430854, 0, 0.011397883, -0.2834708)
 
 [editable path="blaster-b"]

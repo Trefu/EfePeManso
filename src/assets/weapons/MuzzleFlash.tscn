@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcr3xfowh2pci"]
 
-[ext_resource type="Texture2D" uid="uid://wxd40e4r78ar" path="res://src/assets/textures/Flashes/scorch_03.png" id="1_fu00a"]
+[ext_resource type="Texture2D" uid="uid://cfqubh5343ly6" path="res://src/assets/textures/Flashes/light_03.png" id="1_fu00a"]
 
 [sub_resource type="Gradient" id="Gradient_fu00a"]
 offsets = PackedFloat32Array(0, 0.5205882, 1)
@@ -56,7 +56,7 @@ material = SubResource("StandardMaterial3D_fy56f")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
 amount = 1
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 randomness = 1.0
 local_coords = true
