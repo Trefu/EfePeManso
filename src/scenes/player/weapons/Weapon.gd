@@ -56,6 +56,10 @@ func _shoot_raycast():
 	var query = PhysicsRayQueryParameters3D.create(from, to)
 	
 	var result = space.intersect_ray(query)
+	
+	var tracer_end: Vector3 = result.position if result else to
+	_spawn_bullet_tracer(muzzle.global_position, tracer_end)
+	
 	if result:
 		_handle_hit(result)
 
@@ -85,6 +89,42 @@ func _show_muzzle_flash():
 		muzzle_flash_particles.emitting = true
 	else:
 		print("ERROR: No hay muzzle_flash_particles")
+
+func _spawn_bullet_tracer(start_pos: Vector3, end_pos: Vector3):
+	
+	var tracer := MeshInstance3D.new()
+	tracer.mesh = CylinderMesh.new()
+	
+	var distance: float = start_pos.distance_to(end_pos)
+	tracer.mesh.height = distance
+	tracer.mesh.top_radius = 0.01
+	tracer.mesh.bottom_radius = 0.01
+	
+	
+	if distance < 3.0:
+		return  
+		
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(1.0, 0.8, 0.3, 1.0)
+	material.emission_enabled = true
+	material.emission = Color(1.0, 0.8, 0.3)
+	material.emission_energy_multiplier = 2.0
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	tracer.material_override = material
+	
+	get_tree().current_scene.add_child(tracer)
+	
+	var midpoint: Vector3 = (start_pos + end_pos) / 2.0
+	tracer.global_position = midpoint
+	tracer.look_at(end_pos, Vector3.UP)
+	tracer.rotate_object_local(Vector3.RIGHT, PI / 2.0)
+	
+	var tween := create_tween()
+	tween.tween_property(material, "albedo_color:a", 0.0, 0.05)
+	tween.parallel().tween_property(tracer, "scale", Vector3(0.1, 1.0, 0.1), 0.05)
+	
+	await get_tree().create_timer(0.08).timeout
+	tracer.queue_free()
 
 #TO DO por ahora esto es provisional y para todas las armas
 func _spawn_hit_effect(hit_position: Vector3):

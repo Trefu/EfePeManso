@@ -8,7 +8,4 @@ class_name WeaponData extends Resource
 @export var spread: float = 0.05
 @export var max_range: float = 100.0
 
-@export var weapon_model: PackedScene
 @export var muzzle_flash_texture: Texture2D
-@export var hit_effect_scene: PackedScene
-@export var bullet_tracer_scene: PackedScene
