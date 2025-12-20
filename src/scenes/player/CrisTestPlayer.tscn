@@ -33,6 +33,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 90.0
 script = ExtResource("2_jjqnt")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5

@@ -35,7 +35,7 @@ size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_0627f")
 
 [node name="PJCris" parent="." instance=ExtResource("1_hsw1x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6130438, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.657446, 0.6130438, 1.2560122)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1015451, 6.16623)
@@ -55,3 +55,39 @@ size = Vector3(15, 1, 0.1)
 transform = Transform3D(0.60189867, 0.7985725, 0, -0.7985725, 0.60189867, 0, 0, 0, 1, 15.712019, 10.212589, 0.070917845)
 use_collision = true
 size = Vector3(1, 8.841537, 0.9824219)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(0.99961644, 1.2105796e-09, 0.027694834, 0.027694834, -4.3694623e-08, -0.99961644, 0, 1, -4.371139e-08, 0.033243418, 3.8718934, -13.718457)
+use_collision = true
+inner_radius = 1.5
+outer_radius = 2.0
+sides = 12
+
+[node name="CSGTorus3D2" type="CSGTorus3D" parent="."]
+transform = Transform3D(0.99961644, 0.027694834, -2.4211593e-09, 0.027694834, -0.99961644, 8.7389246e-08, 0, -8.742278e-08, -1, 10.934904, 7.279808, 18.904526)
+use_collision = true
+inner_radius = 1.5
+outer_radius = 2.0
+sides = 12
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.07297, 7.0323744, -13.824657)
+use_collision = true
+radius = 3.0
+height = 15.0
+sides = 12
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.982973, 6.1015453, 7.1441526)
+use_collision = true
+size = Vector3(1, 10, 25)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.5080346, 0, 0.86133665, 0, 1, 0, -0.86133665, 0, -0.5080346, 34.26174, 6.1015453, 39.410446)
+use_collision = true
+size = Vector3(1, 10, 25)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.24184468, 0.24184468, -0.9396927, 0.7071067, 0.7071067, 0, 0.664463, -0.664463, -0.34202006, -3.444748, 8.747118, -45.45441)
+use_collision = true
+size = Vector3(0.2821045, 12.682617, 37.387573)
