@@ -296,4 +296,4 @@ size = Vector3(1, 1.3000001, 5.9)
 material = SubResource("StandardMaterial3D_200m8")
 
 [node name="TrefuTestPlayer" parent="." instance=ExtResource("6_cnfna")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9009428, 0)
+transform = Transform3D(-0.98777556, 0, 0.15588291, 0, 1, 0, -0.15588291, 0, -0.98777556, 0, 0.9009428, 0)

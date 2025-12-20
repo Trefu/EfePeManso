@@ -1,36 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://ds4kx3f3lkaxt"]
+[gd_scene load_steps=11 format=4 uid="uid://ds4kx3f3lkaxt"]
 
 [ext_resource type="PackedScene" uid="uid://cuy31uppxrr1t" path="res://src/assets/models/weapons/kenney-blasters/blaster-b.fbx" id="1_88sxp"]
 [ext_resource type="Script" uid="uid://dl6v2awdjh8cw" path="res://src/scenes/Player/Weapons/Weapon.gd" id="1_nhund"]
 [ext_resource type="Resource" uid="uid://misbylsabudc" path="res://src/scenes/Player/Weapons/Pistol/PistolBlaster.tres" id="2_v3d42"]
+[ext_resource type="AudioStream" uid="uid://s6ut30tq6qpi" path="res://src/assets/sounds/sfx/PistolBlasterReload.wav" id="4_xa3ap"]
 [ext_resource type="PackedScene" uid="uid://bcr3xfowh2pci" path="res://src/assets/weapons/MuzzleFlash.tscn" id="5_xa3ap"]
-
-[sub_resource type="Animation" id="Animation_xa3ap"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_v3d42"]
 resource_name = "fire"
@@ -60,10 +34,66 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.033169255, 0.020328999), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_66dob"]
+resource_name = "reload"
+length = 1.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.53333336, 1.1666666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.53333336, 1.1666666),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.1415927, 0, 0), Vector3(6.265732, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xa3ap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66dob"]
 _data = {
 &"RESET": SubResource("Animation_xa3ap"),
-&"fire": SubResource("Animation_v3d42")
+&"fire": SubResource("Animation_v3d42"),
+&"reload": SubResource("Animation_66dob")
 }
 
 [sub_resource type="AudioStreamWAV" id="AudioStreamWAV_v3d42"]
@@ -76,6 +106,7 @@ script = ExtResource("1_nhund")
 weapon_data = ExtResource("2_v3d42")
 
 [node name="blaster-b" parent="." instance=ExtResource("1_88sxp")]
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../blaster-b")
@@ -83,10 +114,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_66dob")
 }
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamWAV_v3d42")
 volume_db = -25.0
 pitch_scale = 1.4
+
+[node name="ReloadSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_xa3ap")
 
 [node name="MuzzlePosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010738403, -0.2799272)

@@ -1,14 +1,21 @@
 # weapon.gd
 class_name Weapon extends Node3D
 
+#region Signals
+signal weapon_fired(current_ammo: int, max_ammo: int)
+signal ammo_changed(current_ammo: int, max_ammo: int)
+#endregion
+
 @export var weapon_data: WeaponData
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var shoot_sound: AudioStreamPlayer3D = $ShootSound
+@onready var reload_sound: AudioStreamPlayer3D = $ReloadSound
 @onready var muzzle_flash_particles: GPUParticles3D = $MuzzleFlash/GPUParticles3D
 @onready var muzzle: Marker3D = $MuzzlePosition
 
 var can_fire: bool = true
 var current_ammo: int = 0
+var is_reloading: bool = false
 
 func _ready():
 	if weapon_data:
@@ -16,13 +23,18 @@ func _ready():
 		_configure_muzzle_flash()
 
 func fire():
-	if not can_fire or current_ammo <= 0:
+	
+	if not can_fire or is_reloading:
+		return false
+		
+	if current_ammo <= 0:
+		reload()
 		return false
 	
-	#TO DO RESTAR MUNICIÓN XD
-	#current_ammo -= 1
+	current_ammo -= 1
+	ammo_changed.emit(current_ammo, weapon_data.magazine_size)
 	can_fire = false
-	
+
 	get_tree().create_timer(weapon_data.fire_rate).timeout.connect(
 		func(): can_fire = true
 	)
@@ -32,6 +44,29 @@ func fire():
 	_play_fire_effects()
 	
 	return true
+
+func reload():
+	if current_ammo >= weapon_data.magazine_size:
+		return
+	if is_reloading:
+		return
+	is_reloading = true
+	can_fire = false
+	if reload_sound:
+		reload_sound.play()
+
+	if animation_player.has_animation("reload"):
+		animation_player.play("reload")
+
+	await get_tree().create_timer(weapon_data.reload_time).timeout
+
+	current_ammo = weapon_data.magazine_size
+	ammo_changed.emit(current_ammo, weapon_data.magazine_size)
+	is_reloading = false
+
+	await get_tree().create_timer(weapon_data.fire_rate).timeout
+	can_fire = true
+
 
 func _shoot_raycast():
 	var camera = get_viewport().get_camera_3d()
@@ -66,14 +101,14 @@ func _shoot_raycast():
 func _handle_hit(result: Dictionary):
 	var hit_obj = result.collider
 	
-	if hit_obj.has_method("take_damage"):
+	if hit_obj and hit_obj.has_method("take_damage"):
 		hit_obj.take_damage(weapon_data.damage)
 	
 	_spawn_hit_effect(result.position)
 
 func _play_fire_effects():
-	if audio_player:
-		audio_player.play()
+	if shoot_sound:
+		shoot_sound.play()
 
 	if animation_player.is_playing():
 		animation_player.stop()
@@ -91,7 +126,6 @@ func _show_muzzle_flash():
 		print("ERROR: No hay muzzle_flash_particles")
 
 func _spawn_bullet_tracer(start_pos: Vector3, end_pos: Vector3):
-	
 	var tracer := MeshInstance3D.new()
 	tracer.mesh = CylinderMesh.new()
 	
@@ -100,9 +134,9 @@ func _spawn_bullet_tracer(start_pos: Vector3, end_pos: Vector3):
 	tracer.mesh.top_radius = 0.01
 	tracer.mesh.bottom_radius = 0.01
 	
-	
+	# Queda mejor si no aparece el tracer tan cerca (menos de 3 metros)
 	if distance < 3.0:
-		return  
+		return
 		
 	var material := StandardMaterial3D.new()
 	material.albedo_color = Color(1.0, 0.8, 0.3, 1.0)
@@ -128,7 +162,6 @@ func _spawn_bullet_tracer(start_pos: Vector3, end_pos: Vector3):
 
 #TO DO por ahora esto es provisional y para todas las armas
 func _spawn_hit_effect(hit_position: Vector3):
-	print("Hit en:", hit_position)
 	
 	var debug_sphere = MeshInstance3D.new()
 	debug_sphere.mesh = SphereMesh.new()
@@ -165,8 +198,3 @@ func _configure_muzzle_flash():
 	new_material.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	quad_mesh.material = new_material
-	
-	
-func reload():
-	current_ammo = weapon_data.magazine_size
-	# TO DO recarga efectos sonidos

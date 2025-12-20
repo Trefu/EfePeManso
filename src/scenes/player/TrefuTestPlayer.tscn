@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=9 format=3 uid="uid://b84l3vpfs2wf"]
 
 [ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_n7hh6"]
 [ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_n7hh6"]
-[ext_resource type="PackedScene" uid="uid://nafspqri1ole" path="res://src/scenes/Player/Weapons/AWPAA/AWPAAA.tscn" id="3_fctua"]
+[ext_resource type="PackedScene" uid="uid://nafspqri1ole" path="res://src/scenes/Player/Weapons/AWPAA/AWPAAA.tscn" id="3_05cjt"]
+[ext_resource type="Script" uid="uid://fh2pv4a334s4" path="res://src/scripts/player/TrefuTestPlayer/CanvasLayer.gd" id="4_05cjt"]
 [ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="4_fctua"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
@@ -10,6 +11,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bponb"]
 radius = 0.25656128
 height = 0.99435425
+
+[sub_resource type="LabelSettings" id="LabelSettings_05cjt"]
+font_size = 24
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
 script = ExtResource("1_n7hh6")
@@ -33,12 +37,13 @@ cull_mask = 524287
 script = ExtResource("2_n7hh6")
 
 [node name="WeaponHolder" type="Node3D" parent="Head"]
-transform = Transform3D(0.9999989, -2.7939677e-09, 0, 2.7939677e-09, 0.9999989, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.9999989, -2.7939677e-09, 0, 2.7939677e-09, 0.9999989, 0, 0, 0, 1, 0.31249774, -0.26600528, -0.5080335)
 
-[node name="Weapon" parent="Head/WeaponHolder" instance=ExtResource("3_fctua")]
-transform = Transform3D(1, -5.9952043e-15, 0, 5.9952043e-15, 1, 0, 0, 0, 1, 0.35429904, -0.31307507, -1.380896)
+[node name="Weapon" parent="Head/WeaponHolder" instance=ExtResource("3_05cjt")]
+transform = Transform3D(1, -2.220446e-16, 0, 2.220446e-16, 1, 0, 0, 0, 1, 0, 0, -0.8095622)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_05cjt")
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -63,3 +68,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_fctua")
 expand_mode = 1
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"
+label_settings = SubResource("LabelSettings_05cjt")

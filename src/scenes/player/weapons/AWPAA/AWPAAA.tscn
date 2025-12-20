@@ -1,9 +1,37 @@
-[gd_scene load_steps=8 format=4 uid="uid://nafspqri1ole"]
+[gd_scene load_steps=11 format=4 uid="uid://nafspqri1ole"]
 
 [ext_resource type="Script" uid="uid://dl6v2awdjh8cw" path="res://src/scenes/Player/Weapons/Weapon.gd" id="1_ofegr"]
 [ext_resource type="PackedScene" uid="uid://bcr3xfowh2pci" path="res://src/assets/weapons/MuzzleFlash.tscn" id="2_8q2ki"]
 [ext_resource type="Resource" uid="uid://bq7kbdq5drxj2" path="res://src/scenes/Player/Weapons/AWPAA/AWPAAA.tres" id="2_s0con"]
 [ext_resource type="PackedScene" uid="uid://j2uy8jjx11ll" path="res://src/assets/models/weapons/kenney-blasters/blaster-e.fbx" id="3_ofegr"]
+[ext_resource type="AudioStream" uid="uid://eoae0ekay5ru" path="res://src/assets/sounds/sfx/boomerang.wav" id="3_s0con"]
+
+[sub_resource type="Animation" id="Animation_ofegr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blaster-e:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blaster-e:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_v3d42"]
 resource_name = "fire"
@@ -33,9 +61,39 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.22684985, 0.2390633), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_8q2ki"]
+resource_name = "reload"
+length = 4.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blaster-e:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 1.21, 1.92, 2.61, 3.2333333, 4.0666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.6232442, 0.58967495, -0.47200286), Vector3(1.6927159, 1.4369009, -4.3547897), Vector3(-0.31282425, 1.4369009, -4.9330626), Vector3(-2.574556, 0.6126628, -3.1450973), Vector3(-2.575, 0, -2.242), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blaster-e:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 1.21, 1.9, 2.6, 3.2333333, 4.0666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.54105204, -0.5375614), Vector3(0, 2.4678955, -0.5375614), Vector3(0, 3.021165, -0.5375614), Vector3(0, 5.7473693, -0.5375614), Vector3(0, 6.265732, -0.5375614), Vector3(0, 6.2831855, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66dob"]
 _data = {
-&"fire": SubResource("Animation_v3d42")
+&"RESET": SubResource("Animation_ofegr"),
+&"fire": SubResource("Animation_v3d42"),
+&"reload": SubResource("Animation_8q2ki")
 }
 
 [sub_resource type="AudioStreamWAV" id="AudioStreamWAV_8q2ki"]
@@ -52,10 +110,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_66dob")
 }
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamWAV_8q2ki")
 volume_db = -30.861
 pitch_scale = 0.8
+
+[node name="ReloadSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_s0con")
 
 [node name="MuzzlePosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05239448, -0.029227257)
@@ -63,3 +124,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05239448, -0.029227257)
 [node name="MuzzleFlash" parent="." instance=ExtResource("2_8q2ki")]
 
 [node name="blaster-e" parent="." instance=ExtResource("3_ofegr")]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 0.99999994, 0, 0, 0)
