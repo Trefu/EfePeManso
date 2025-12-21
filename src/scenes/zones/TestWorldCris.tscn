@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmn703xkydkrd"]
+[gd_scene load_steps=11 format=3 uid="uid://bmn703xkydkrd"]
 
 [ext_resource type="PackedScene" uid="uid://cbi0saiwp4wu2" path="res://src/scenes/player/CrisTestPlayer.tscn" id="1_hsw1x"]
 [ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="1_ievtm"]
@@ -20,6 +20,18 @@ glow_enabled = true
 albedo_texture = ExtResource("1_ievtm")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ievtm"]
+albedo_color = Color(0, 0.8352941, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfrav"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehajq"]
+albedo_color = Color(1, 0, 0.5529412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_csp82"]
+albedo_color = Color(0, 0.29411766, 1, 1)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -35,7 +47,7 @@ size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_0627f")
 
 [node name="PJCris" parent="." instance=ExtResource("1_hsw1x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.657446, 0.6130438, 1.2560122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1015451, 6.16623)
@@ -57,7 +69,7 @@ use_collision = true
 size = Vector3(1, 8.841537, 0.9824219)
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="."]
-transform = Transform3D(0.99961644, 1.2105796e-09, 0.027694834, 0.027694834, -4.3694623e-08, -0.99961644, 0, 1, -4.371139e-08, 0.033243418, 3.8718934, -13.718457)
+transform = Transform3D(0.99961644, 1.2105796e-09, 0.027694834, 0.027694834, -4.3694623e-08, -0.99961644, 0, 1, -4.371139e-08, 0.033243418, 5.8427577, -13.718457)
 use_collision = true
 inner_radius = 1.5
 outer_radius = 2.0
@@ -78,9 +90,9 @@ height = 15.0
 sides = 12
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.982973, 6.1015453, 7.1441526)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.75553, 4.266096, 16.677792)
 use_collision = true
-size = Vector3(1, 10, 25)
+size = Vector3(1, 6.3291016, 25)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="."]
 transform = Transform3D(-0.5080346, 0, 0.86133665, 0, 1, 0, -0.86133665, 0, -0.5080346, 34.26174, 6.1015453, 39.410446)
@@ -88,6 +100,30 @@ use_collision = true
 size = Vector3(1, 10, 25)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="."]
-transform = Transform3D(-0.24184468, 0.24184468, -0.9396927, 0.7071067, 0.7071067, 0, 0.664463, -0.664463, -0.34202006, -3.444748, 8.747118, -45.45441)
+transform = Transform3D(-0.24184468, 0.24184468, -0.9396927, 0.7071067, 0.7071067, 0, 0.664463, -0.664463, -0.34202006, -10.387326, 5.5411863, -39.59895)
 use_collision = true
-size = Vector3(0.2821045, 12.682617, 37.387573)
+size = Vector3(0.2821045, 6.251953, 21.042908)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2729988, 5.450186, -50.19858)
+use_collision = true
+size = Vector3(101.674805, 10, 1.7978516)
+material = SubResource("StandardMaterial3D_ievtm")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 50.634956, 5.450186, 0.5844803)
+use_collision = true
+size = Vector3(101.674805, 10, 1.7978516)
+material = SubResource("StandardMaterial3D_vfrav")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -50.29416, 5.450186, 0.5844803)
+use_collision = true
+size = Vector3(101.674805, 10, 1.7978516)
+material = SubResource("StandardMaterial3D_ehajq")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2729988, 5.450186, 50.775864)
+use_collision = true
+size = Vector3(101.674805, 10, 1.7978516)
+material = SubResource("StandardMaterial3D_csp82")
