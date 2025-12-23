@@ -9,7 +9,6 @@ extends CharacterBody3D
 var current_speed = 0.0
 const RUNNING_SPEED = 7.0
 const CROUCHING_SPEED = RUNNING_SPEED * 0.65
-const DASHING_SPEED = RUNNING_SPEED * 10
 const JUMP_SPEED = 10.0
 const EXTRA_JUMP_SPEED = 7.5
 const LERP_SPEED = 8.0
@@ -33,14 +32,17 @@ const MAX_COYOTE_TIME = 1.0
 var dash_cooldown = 0.0
 var dash_duration = 0.0
 const MAX_DASH_COOLDOWN = 2.0
-const MAX_DASH_DURATION = 0.5
 var is_dashing = false
 var dash_direction = Vector3.ZERO
+const DASH_DISTANCE = 20.0
+const DASHING_SPEED = 80.0
+const MAX_DASH_DURATION = DASH_DISTANCE / DASHING_SPEED
+
+var dash_remaining_distance = 0.0
 
 var is_sliding = false
 
 func _physics_process(delta: float) -> void:
-	
 	if coyote_time > 0.0 and !is_on_floor():
 		coyote_time -= delta
 	elif is_on_floor():
@@ -55,12 +57,12 @@ func _physics_process(delta: float) -> void:
 		dash_cooldown -= delta
 	else:
 		dash_cooldown = 0.0
-		dash_duration = MAX_DASH_DURATION
 	
 	if is_dashing:
-		dash_duration -= delta
-		if dash_duration <= 0.0:
-			dash_duration = 0.0
+		var distance_this_frame = DASHING_SPEED * delta
+		dash_remaining_distance -= distance_this_frame
+		
+		if dash_remaining_distance <= 0.0:
 			current_speed = RUNNING_SPEED
 			is_dashing = false
 			velocity.y = 0.0
@@ -68,7 +70,8 @@ func _physics_process(delta: float) -> void:
 			is_sliding = true
 			is_dashing = false
 		else:
-			move(dash_direction)
+			velocity = dash_direction * DASHING_SPEED
+			move_and_slide()
 			return
 	
 	if is_sliding:
@@ -129,31 +132,35 @@ func crouch(delta: float) -> void:
 		current_speed = CROUCHING_SPEED
 
 func calculate_dash_direction() -> void:
-	var camera_forward = -camera_3d.global_transform.basis.z.normalized()
+	var camera_forward = - camera_3d.global_transform.basis.z.normalized()
 	var camera_flat_forward = Vector3(camera_forward.x, 0, camera_forward.z).normalized()
 	
-	# Verificar si se está moviendo en XZ
-	var is_moving_xz = last_movement_direction.length() > 0.1 and _is_running()
+	# Obtener input ACTUAL del jugador (no la dirección por inercia)
+	var input_dir := Input.get_vector("left", "right", "forward", "backward")
+	var current_input_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	# Verificar si se está presionando alguna tecla de movimiento
+	var is_moving_xz = current_input_direction.length() > 0.1
 	
 	if is_on_floor():
 		if is_moving_xz:
-			# Caso 1: Piso + movimiento
-			dash_direction = last_movement_direction
+			# Caso 1: Piso + movimiento - usar INPUT ACTUAL, no inercia
+			dash_direction = current_input_direction
 		else:
 			# Caso 2: Piso + no movimiento
 			dash_direction = camera_flat_forward
 	else:
 		if is_moving_xz:
 			# Caso 4: No piso + movimiento
-			# Mantener dirección horizontal del movimiento
-			var horizontal_dir = last_movement_direction
+			# Usar dirección horizontal del INPUT ACTUAL
+			var horizontal_dir = current_input_direction
 			
 			# Usar componente vertical de la cámara
 			var vertical_component = camera_forward.y
 			
 			if Input.is_action_pressed("backward"):
 				# Invertir componente vertical cuando se presiona backward
-				vertical_component = -vertical_component
+				vertical_component = - vertical_component
 			
 			# Combinar dirección horizontal del movimiento con componente vertical de la cámara
 			dash_direction = Vector3(horizontal_dir.x, vertical_component, horizontal_dir.z).normalized()
@@ -167,7 +174,7 @@ func calculate_dash_direction() -> void:
 func dash() -> void:
 	is_dashing = true
 	dash_cooldown = MAX_DASH_COOLDOWN
-	dash_duration = MAX_DASH_DURATION
+	dash_remaining_distance = DASH_DISTANCE
 	current_speed = DASHING_SPEED
 
 func get_direction(delta: float) -> Vector3:
