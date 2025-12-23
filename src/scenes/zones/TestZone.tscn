@@ -1,11 +1,11 @@
 [gd_scene load_steps=28 format=3 uid="uid://dsp8uibcmbtp"]
 
-[ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/textures/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
-[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/grids/Dark/texture_07.png" id="2_weu3e"]
+[ext_resource type="Texture2D" uid="uid://b84qqums2wlf0" path="res://src/assets/textures/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
+[ext_resource type="Texture2D" uid="uid://8d7gstpind52" path="res://src/assets/textures/grids/Dark/texture_07.png" id="2_weu3e"]
 [ext_resource type="PackedScene" uid="uid://lbn4bi8pf7fu" path="res://src/scenes/EnvironmentItem/TargetSmall.tscn" id="5_5nnx6"]
 [ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
 [ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/Player/TrefuTestPlayer.tscn" id="6_cnfna"]
-[ext_resource type="Texture2D" uid="uid://hbllxjcsagws" path="res://src/assets/textures/grids/Orange/texture_05.png" id="6_weu3e"]
+[ext_resource type="Texture2D" uid="uid://b8g0clild1ax5" path="res://src/assets/textures/grids/Orange/texture_05.png" id="6_weu3e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
 panorama = ExtResource("1_5nnx6")

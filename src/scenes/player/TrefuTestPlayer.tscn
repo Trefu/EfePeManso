@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_n7hh6"]
 [ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_n7hh6"]
 [ext_resource type="PackedScene" uid="uid://nafspqri1ole" path="res://src/scenes/Player/Weapons/AWPAA/AWPAAA.tscn" id="3_05cjt"]
-[ext_resource type="Script" uid="uid://fh2pv4a334s4" path="res://src/scripts/player/TrefuTestPlayer/CanvasLayer.gd" id="4_05cjt"]
+[ext_resource type="Script" uid="uid://du38k1wlfnren" path="res://src/scripts/player/TrefuTestPlayer/CanvasLayer.gd" id="4_05cjt"]
 [ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="4_fctua"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
@@ -40,7 +40,7 @@ script = ExtResource("2_n7hh6")
 transform = Transform3D(0.9999989, -2.7939677e-09, 0, 2.7939677e-09, 0.9999989, 0, 0, 0, 1, 0.31249774, -0.26600528, -0.5080335)
 
 [node name="Weapon" parent="Head/WeaponHolder" instance=ExtResource("3_05cjt")]
-transform = Transform3D(1, -2.220446e-16, 0, 2.220446e-16, 1, 0, 0, 0, 1, 0, 0, -0.8095622)
+transform = Transform3D(1.0000011, 2.7939708e-09, 0, -2.7939708e-09, 1.0000011, 0, 0, 0, 1, 0.24254999, -0.16115499, -1.0376967)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("4_05cjt")
