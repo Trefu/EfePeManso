@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://bq7kbdq5drxj2"]
 
-[ext_resource type="Script" uid="uid://b7p23636o2eoc" path="res://src/scenes/Player/Weapons/WeaponData.gd" id="1_jc3b4"]
-[ext_resource type="Texture2D" uid="uid://drvt2f0dh6xva" path="res://src/assets/textures/Flashes/circle_03.png" id="1_vxe4x"]
+[ext_resource type="Script" path="res://src/scenes/Player/Weapons/WeaponData.gd" id="1_jc3b4"]
+[ext_resource type="Texture2D" path="res://src/assets/textures/Flashes/circle_03.png" id="1_vxe4x"]
 
 [resource]
 script = ExtResource("1_jc3b4")
