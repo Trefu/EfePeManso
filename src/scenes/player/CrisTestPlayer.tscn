@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbi0saiwp4wu2"]
 
-[ext_resource type="Script" uid="uid://dnuuf0u76i0ij" path="res://src/Weapons/player/CrisTestPlayer/CrisTestPlayer.gd" id="1_jjqnt"]
-[ext_resource type="Script" uid="uid://bt1ghjmsdnnbl" path="res://src/Weapons/player/CrisTestPlayer/Camera.gd" id="2_jjqnt"]
+[ext_resource type="Script" uid="uid://q574becl3qem" path="res://src/scripts/Player/CrisTestPlayer/CrisTestPlayer.gd" id="1_jjqnt"]
+[ext_resource type="Script" uid="uid://co0h2s1w37oe1" path="res://src/scripts/Player/CrisTestPlayer/Camera.gd" id="2_jjqnt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_d2fpf"]
 
@@ -33,6 +33,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 90.0
 script = ExtResource("2_jjqnt")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5
