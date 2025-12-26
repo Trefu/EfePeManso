@@ -41,6 +41,16 @@ const MAX_DASH_DURATION = DASH_DISTANCE / DASHING_SPEED
 var dash_remaining_distance = 0.0
 
 var is_sliding = false
+var is_prepared_to_slide = false
+
+var left_input_event:InputEventKey = InputEventKey.new()
+var right_input_event:InputEventKey = InputEventKey.new()
+var backwards_input_event:InputEventKey = InputEventKey.new()
+
+func _ready() -> void:
+	left_input_event.physical_keycode = KEY_A
+	right_input_event.physical_keycode = KEY_D
+	backwards_input_event.physical_keycode = KEY_S
 
 func _physics_process(delta: float) -> void:
 	if coyote_time > 0.0 and !is_on_floor():
@@ -61,7 +71,6 @@ func _physics_process(delta: float) -> void:
 	if is_dashing:
 		var distance_this_frame = DASHING_SPEED * delta
 		dash_remaining_distance -= distance_this_frame
-		
 		if dash_remaining_distance <= 0.0:
 			current_speed = RUNNING_SPEED
 			is_dashing = false
@@ -69,6 +78,9 @@ func _physics_process(delta: float) -> void:
 		elif _can_crouch() and is_on_floor():
 			is_sliding = true
 			is_dashing = false
+			InputMap.action_erase_event("left", left_input_event)
+			InputMap.action_erase_event("right", right_input_event)
+			InputMap.action_erase_event("backward", backwards_input_event)
 		else:
 			velocity = dash_direction * DASHING_SPEED
 			move_and_slide()
@@ -76,13 +88,23 @@ func _physics_process(delta: float) -> void:
 	
 	if is_sliding:
 		crouch(delta)
-		current_speed -= delta * 15
-		if current_speed <= CROUCHING_SPEED and is_crouching:
+		print("angle = ", round(rad_to_deg(get_floor_angle())))
+		print("current speed: ", current_speed)
+		if is_on_floor():
+			if round(rad_to_deg(get_floor_angle())) <= 45.0:
+				current_speed -= delta * (90 - round(rad_to_deg(get_floor_angle())))
+			elif round(rad_to_deg(get_floor_angle())) > 45.0 and current_speed <= DASHING_SPEED * 2:
+				current_speed += delta * (round(rad_to_deg(get_floor_angle())) / 2)
+			else:
+				current_speed = DASHING_SPEED * 2
+		else:
+			current_speed -= delta * 45
+		if (current_speed <= CROUCHING_SPEED and is_crouching) or Input.is_action_just_released("crouch"):
 			is_sliding = false
-		elif !is_crouching:
-			is_sliding = false
-			stand(delta)
-	
+			InputMap.action_add_event("left", left_input_event)
+			InputMap.action_add_event("right", right_input_event)
+			InputMap.action_add_event("backward", backwards_input_event)
+
 	if _can_jump():
 		# Handle jump.
 		velocity.y = JUMP_SPEED
