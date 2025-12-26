@@ -1,11 +1,11 @@
 [gd_scene load_steps=28 format=3 uid="uid://dsp8uibcmbtp"]
 
-[ext_resource type="Texture2D" uid="uid://dmeqrttyi6su8" path="res://src/assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
-[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="2_weu3e"]
-[ext_resource type="PackedScene" uid="uid://bfew2pql4vbju" path="res://src/scenes/player/PlayerFinal.tscn" id="4_wgu1d"]
+[ext_resource type="Texture2D" uid="uid://b84qqums2wlf0" path="res://src/assets/textures/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
+[ext_resource type="Texture2D" uid="uid://8d7gstpind52" path="res://src/assets/textures/grids/Dark/texture_07.png" id="2_weu3e"]
 [ext_resource type="PackedScene" uid="uid://lbn4bi8pf7fu" path="res://src/scenes/EnvironmentItem/TargetSmall.tscn" id="5_5nnx6"]
 [ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
-[ext_resource type="Texture2D" uid="uid://hbllxjcsagws" path="res://src/assets/textures/dev/grids/Orange/texture_05.png" id="6_weu3e"]
+[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/Player/TrefuTestPlayer.tscn" id="6_cnfna"]
+[ext_resource type="Texture2D" uid="uid://b8g0clild1ax5" path="res://src/assets/textures/grids/Orange/texture_05.png" id="6_weu3e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
 panorama = ExtResource("1_5nnx6")
@@ -179,6 +179,7 @@ albedo_texture = ExtResource("6_weu3e")
 uv1_triplanar = true
 
 [node name="TestZone" type="Node3D"]
+metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h0k64")
@@ -204,7 +205,6 @@ metadata/_edit_lock_ = true
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_j36nd")
 volume_db = -12.8
-autoplay = true
 
 [node name="StaticEnviroment" type="Node" parent="."]
 
@@ -280,19 +280,20 @@ mesh = SubResource("BoxMesh_weu3e")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticEnviroment/MovingPlatform2"]
 shape = SubResource("BoxShape3D_200m8")
 
-[node name="PlayerFinal" parent="." instance=ExtResource("4_wgu1d")]
-
 [node name="SmallTarget1" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.17364822, 0, 1.4440002, 21)
+transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, 0.035572767, 1.4440002, 20.593882)
 
 [node name="SmallTarget2" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364824, 0, -0.9848078, 0, 1, 0, 0.9848078, 0, -0.17364824, -2.3, 1.4440002, 20.6)
+transform = Transform3D(-5.9604645e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -5.9604645e-08, -2.2989442, 1.4440002, 20.599348)
 
 [node name="SmallTarget3" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.17364822, -4.5, 1.4440002, 20.2)
+transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, -4.5349803, 1.4440002, 20.587452)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(-0.1736482, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.1736482, -2.412779, 0.7999999, 20.574562)
+transform = Transform3D(-4.4703484e-08, 0, -1, 0, 1, 0, 1, 0, -4.4703484e-08, -2.4144273, 0.7999999, 20.593882)
 use_collision = true
 size = Vector3(1, 1.3000001, 5.9)
 material = SubResource("StandardMaterial3D_200m8")
+
+[node name="TrefuTestPlayer" parent="." instance=ExtResource("6_cnfna")]
+transform = Transform3D(-0.98777556, 0, 0.15588291, 0, 1, 0, -0.15588291, 0, -0.98777556, 0, 1.0619278, 0)
