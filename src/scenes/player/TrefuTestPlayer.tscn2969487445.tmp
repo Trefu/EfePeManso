@@ -21,6 +21,19 @@ font_size = 24
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
 script = ExtResource("1_n7hh6")
+movement_acceleration = null
+movement_deceleration = null
+air_control = null
+camera_smooth_speed = null
+camera_bob_speed = null
+camera_bob_intensity = null
+tilt_amount = null
+tilt_speed = null
+fov_transition_speed = null
+jump_velocity = null
+gravity_multiplier = null
+max_air_jumps = null
+coyote_time_max = null
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_atryo")
