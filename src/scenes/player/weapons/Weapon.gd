@@ -17,10 +17,13 @@ var can_fire: bool = true
 var current_ammo: int = 0
 var is_reloading: bool = false
 
+
 func _ready():
 	if weapon_data:
 		current_ammo = weapon_data.magazine_size
 		_configure_muzzle_flash()
+	if weapon_data.equipped_position != Vector3.ZERO:
+		position = weapon_data.equipped_position
 
 func fire():
 	

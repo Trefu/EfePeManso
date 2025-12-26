@@ -281,16 +281,16 @@ mesh = SubResource("BoxMesh_weu3e")
 shape = SubResource("BoxShape3D_200m8")
 
 [node name="SmallTarget1" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.17364822, 0, 1.4440002, 21)
+transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, 0.035572767, 1.4440002, 20.593882)
 
 [node name="SmallTarget2" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364824, 0, -0.9848078, 0, 1, 0, 0.9848078, 0, -0.17364824, -2.3, 1.4440002, 20.6)
+transform = Transform3D(-5.9604645e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -5.9604645e-08, -2.2989442, 1.4440002, 20.599348)
 
 [node name="SmallTarget3" parent="." instance=ExtResource("5_5nnx6")]
-transform = Transform3D(-0.17364822, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.17364822, -4.5, 1.4440002, 20.2)
+transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, -4.5349803, 1.4440002, 20.587452)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(-0.1736482, 0, -0.9848077, 0, 1, 0, 0.9848077, 0, -0.1736482, -2.412779, 0.7999999, 20.574562)
+transform = Transform3D(-4.4703484e-08, 0, -1, 0, 1, 0, 1, 0, -4.4703484e-08, -2.4144273, 0.7999999, 20.593882)
 use_collision = true
 size = Vector3(1, 1.3000001, 5.9)
 material = SubResource("StandardMaterial3D_200m8")

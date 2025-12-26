@@ -15,15 +15,15 @@ var base_head_y: float = 0.0
 
 # Variables exportadas para ajuste fácil
 @export_category("Smoothing Settings")
-@export var movement_acceleration: float = 20.0
-@export var movement_deceleration: float = 45.0
-@export var air_control: float = 8.0
-@export var camera_smooth_speed: float = 10.0
-@export var camera_bob_speed: float = 15.0
+@export var movement_acceleration: float = 50.0
+@export var movement_deceleration: float = 70.0
+@export var air_control: float = 12.0
+@export var camera_smooth_speed: float = 13.0
+@export var camera_bob_speed: float = 9.0
 @export var camera_bob_intensity: float = 0.04
-@export var tilt_amount: float = 5.0
-@export var tilt_speed: float = 8.0
-@export var fov_transition_speed: float = 8.0
+@export var tilt_amount: float = 6.0
+@export var tilt_speed: float = 5.0
+@export var fov_transition_speed: float = 7.0
 
 var current_weapon = null
 const MOUSE_SENSITIVITY: float = 0.002
@@ -45,13 +45,18 @@ var air_jumps_used: int = 0
 var coyote_time: float = 0.0
 var gravity: float = 9.8
 
+var base_head_position: Vector3 = Vector3.ZERO
+var base_head_rotation: Vector3 = Vector3.ZERO
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	current_weapon = $Head/WeaponHolder/Weapon
+	current_weapon = weapon_holder.get_child(0)
 	base_fov = camera.fov
 	target_fov = base_fov
 	base_head_y = head.position.y
-
+	base_head_position = head.position
+	base_head_rotation = head.rotation
+	
 func _physics_process(delta: float) -> void:
 	update_air_state()
 	update_coyote_time(delta)
@@ -94,29 +99,20 @@ func apply_movement_smoothing(delta: float) -> void:
 	var decel := movement_deceleration
 
 	if has_input:
-		var wish_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var wish_dir := Vector3(input_dir.x, 0, input_dir.y).normalized()
+		wish_dir = global_transform.basis * wish_dir
+		wish_dir.y = 0
+		wish_dir = wish_dir.normalized()
+
 		var desired_velocity := wish_dir * MOVEMENT_SPEED
 
-		smoothed_velocity.x = move_toward(
-			smoothed_velocity.x,
-			desired_velocity.x,
-			accel * delta
-		)
-		smoothed_velocity.z = move_toward(
-			smoothed_velocity.z,
-			desired_velocity.z,
+		smoothed_velocity = smoothed_velocity.move_toward(
+			desired_velocity,
 			accel * delta
 		)
 	else:
-		# Fricción
-		smoothed_velocity.x = move_toward(
-			smoothed_velocity.x,
-			0.0,
-			decel * delta
-		)
-		smoothed_velocity.z = move_toward(
-			smoothed_velocity.z,
-			0.0,
+		smoothed_velocity = smoothed_velocity.move_toward(
+			Vector3.ZERO,
 			decel * delta
 		)
 

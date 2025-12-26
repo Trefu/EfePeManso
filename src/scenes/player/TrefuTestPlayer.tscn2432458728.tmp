@@ -21,6 +21,19 @@ font_size = 24
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
 script = ExtResource("1_n7hh6")
+movement_acceleration = null
+movement_deceleration = null
+air_control = 40.0
+camera_smooth_speed = null
+camera_bob_speed = null
+camera_bob_intensity = null
+tilt_amount = null
+tilt_speed = null
+fov_transition_speed = null
+jump_velocity = null
+gravity_multiplier = null
+max_air_jumps = null
+coyote_time_max = null
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_atryo")
@@ -49,7 +62,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="HeadCamera" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100000024, -0.1)
+transform = Transform3D(0.99999666, 0.0026005378, 0, -0.0026005378, 0.99999666, 0, 0, 0, 1, 0, 0.06544852, -0.10213646)
 cull_mask = 524287
 script = ExtResource("2_n7hh6")
 
@@ -57,7 +70,6 @@ script = ExtResource("2_n7hh6")
 transform = Transform3D(0.9999989, -2.7939677e-09, 0, 2.7939677e-09, 0.9999989, 0, 0, 0, 1, 0.31249774, 0.0613122, -0.5080335)
 
 [node name="PistolBlaster" parent="Head/WeaponHolder" instance=ExtResource("7_8671w")]
-transform = Transform3D(1, -2.220446e-16, 0, 2.220446e-16, 1, 0, 0, 0, 1, 0, -0.3000003, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("4_05cjt")
