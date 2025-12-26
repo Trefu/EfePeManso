@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmn703xkydkrd"]
 
-[ext_resource type="PackedScene" uid="uid://cbi0saiwp4wu2" path="res://src/scenes/player/CrisTestPlayer.tscn" id="1_hsw1x"]
-[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/dev/grids/Dark/texture_07.png" id="1_ievtm"]
+[ext_resource type="PackedScene" uid="uid://cbi0saiwp4wu2" path="res://src/scenes/Player/CrisTestPlayer.tscn" id="1_hsw1x"]
+[ext_resource type="Texture2D" uid="uid://dqp6lk72dktnm" path="res://src/assets/textures/grids/Dark/texture_07.png" id="1_ievtm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hsw1x"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

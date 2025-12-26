@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://b84l3vpfs2wf"]
+
+[ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestPlayer.gd" id="1_n7hh6"]
+[ext_resource type="Script" uid="uid://bugn7w5il1mv5" path="res://src/scripts/state_machine/StateMachine.gd" id="2_atryo"]
+[ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/TrefuTestCamera.gd" id="2_n7hh6"]
+[ext_resource type="Script" uid="uid://b077inw0l588k" path="res://src/scripts/player/TrefuTestPlayer/states/GroundedState.gd" id="3_8671w"]
+[ext_resource type="Script" uid="uid://dg1ydp3q6dylw" path="res://src/scripts/player/TrefuTestPlayer/states/JumpingState.gd" id="4_2xpst"]
+[ext_resource type="Script" uid="uid://du38k1wlfnren" path="res://src/scripts/player/TrefuTestPlayer/CanvasLayer.gd" id="4_05cjt"]
+[ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="4_fctua"]
+[ext_resource type="Script" uid="uid://c2pwckqv0747y" path="res://src/scripts/player/TrefuTestPlayer/states/FallingState.gd" id="5_0mqdt"]
+[ext_resource type="PackedScene" uid="uid://ds4kx3f3lkaxt" path="res://src/scenes/Player/Weapons/Pistol/PistolBlaster.tscn" id="7_8671w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bponb"]
+radius = 0.25656128
+height = 0.99435425
+
+[sub_resource type="LabelSettings" id="LabelSettings_05cjt"]
+font_size = 24
+
+[node name="TrefuTestPlayer" type="CharacterBody3D"]
+script = ExtResource("1_n7hh6")
+air_control = 40.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_atryo")
+initial_state = NodePath("Falling")
+
+[node name="Grounded" type="Node" parent="StateMachine"]
+script = ExtResource("3_8671w")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("4_2xpst")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("5_0mqdt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 524288
+mesh = SubResource("CapsuleMesh_4u3p5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bponb")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="HeadCamera" type="Camera3D" parent="Head"]
+transform = Transform3D(0.99999666, 0.0026005378, 0, -0.0026005378, 0.99999666, 0, 0, 0, 1, 0, 0.06544852, -0.10213646)
+cull_mask = 524287
+script = ExtResource("2_n7hh6")
+
+[node name="WeaponHolder" type="Node3D" parent="Head"]
+transform = Transform3D(0.9999989, -2.7939677e-09, 0, 2.7939677e-09, 0.9999989, 0, 0, 0, 1, 0.31249774, 0.0613122, -0.5080335)
+
+[node name="PistolBlaster" parent="Head/WeaponHolder" instance=ExtResource("7_8671w")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("4_05cjt")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_fctua")
+expand_mode = 1
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"
+label_settings = SubResource("LabelSettings_05cjt")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://misbylsabudc"]
+
+[ext_resource type="Texture2D" uid="uid://bl0b2fn5n3e3c" path="res://src/assets/textures/Flashes/Rotated/muzzle_01_rotated.png" id="1_7l103"]
+[ext_resource type="Script" uid="uid://dyely4krrdqxt" path="res://src/scenes/Player/Weapons/WeaponData.gd" id="1_hdf6c"]
+
+[resource]
+script = ExtResource("1_hdf6c")
+fire_rate = 0.3
+magazine_size = 20
+reload_time = 1.18
+spread = 0.009
+equipped_position = Vector3(0, -0.3000003, 0)
+muzzle_flash_texture = ExtResource("1_7l103")
