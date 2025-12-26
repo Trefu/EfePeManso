@@ -90,29 +90,36 @@ func apply_movement_smoothing(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var has_input := input_dir.length() > 0.01
 
-	# Dirección deseada
-	var wish_dir := Vector3.ZERO
-	if has_input:
-		wish_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	# Elegir control según estado
 	var accel := movement_acceleration if is_on_floor() else air_control
 	var decel := movement_deceleration
 
-	# ===== ACELERACIÓN =====
 	if has_input:
-		current_smooth_direction = current_smooth_direction.lerp(wish_dir, accel * delta)
-		target_velocity = current_smooth_direction * MOVEMENT_SPEED
+		var wish_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var desired_velocity := wish_dir * MOVEMENT_SPEED
 
-		smoothed_velocity.x = lerp(smoothed_velocity.x, target_velocity.x, accel * delta)
-		smoothed_velocity.z = lerp(smoothed_velocity.z, target_velocity.z, accel * delta)
-
-	# ===== DESACELERACIÓN (FRICCIÓN) =====
+		smoothed_velocity.x = move_toward(
+			smoothed_velocity.x,
+			desired_velocity.x,
+			accel * delta
+		)
+		smoothed_velocity.z = move_toward(
+			smoothed_velocity.z,
+			desired_velocity.z,
+			accel * delta
+		)
 	else:
-		smoothed_velocity.x = move_toward(smoothed_velocity.x, 0.0, decel * delta)
-		smoothed_velocity.z = move_toward(smoothed_velocity.z, 0.0, decel * delta)
+		# Fricción
+		smoothed_velocity.x = move_toward(
+			smoothed_velocity.x,
+			0.0,
+			decel * delta
+		)
+		smoothed_velocity.z = move_toward(
+			smoothed_velocity.z,
+			0.0,
+			decel * delta
+		)
 
-	# Aplicar al cuerpo
 	velocity.x = smoothed_velocity.x
 	velocity.z = smoothed_velocity.z
 

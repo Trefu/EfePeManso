@@ -21,6 +21,8 @@ font_size = 24
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
 script = ExtResource("1_n7hh6")
+movement_acceleration = 70.0
+movement_deceleration = 35.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_atryo")
