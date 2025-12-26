@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://6cs7c7lv5dwe" path="res://src/assets/models/weapons/kenney-blasters/target-small.fbx" id="1_reeg4"]
 [ext_resource type="AudioStream" uid="uid://de70kfpg2hdpa" path="res://src/assets/sounds/sfx/hurt_sound_ay.wav" id="3_4tvys"]
 [ext_resource type="Script" uid="uid://cqpqb5clt3ann" path="res://src/scenes/EnvironmentItem/TargetSmall.gd" id="3_kguyu"]
-[ext_resource type="Texture2D" uid="uid://c7qetv7qv56i4" path="res://src/assets/models/weapons/kenney-blasters/Textures/colormap.png" id="3_mai74"]
+[ext_resource type="Texture2D" uid="uid://ddidndmagia2x" path="res://src/assets/models/weapons/kenney-blasters/Textures/colormap.png" id="3_mai74"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hec6v"]
 resource_name = "colormap"

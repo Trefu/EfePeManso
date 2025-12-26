@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=4 uid="uid://nafspqri1ole"]
 
-[ext_resource type="Script" uid="uid://dl6v2awdjh8cw" path="res://src/scenes/Player/Weapons/Weapon.gd" id="1_ofegr"]
+[ext_resource type="Script" uid="uid://bx0fds2rjtjco" path="res://src/scenes/Player/Weapons/Weapon.gd" id="1_ofegr"]
 [ext_resource type="PackedScene" uid="uid://bcr3xfowh2pci" path="res://src/assets/weapons/MuzzleFlash.tscn" id="2_8q2ki"]
 [ext_resource type="Resource" uid="uid://bq7kbdq5drxj2" path="res://src/scenes/Player/Weapons/AWPAA/AWPAAA.tres" id="2_s0con"]
 [ext_resource type="PackedScene" uid="uid://j2uy8jjx11ll" path="res://src/assets/models/weapons/kenney-blasters/blaster-e.fbx" id="3_ofegr"]
-[ext_resource type="AudioStream" uid="uid://eoae0ekay5ru" path="res://src/assets/sounds/sfx/boomerang.wav" id="3_s0con"]
+[ext_resource type="AudioStream" uid="uid://oebxtbvy1hmi" path="res://src/assets/sounds/sfx/boomerang.wav" id="3_s0con"]
 
 [sub_resource type="Animation" id="Animation_ofegr"]
 length = 0.001
