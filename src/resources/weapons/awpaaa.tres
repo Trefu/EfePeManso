@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://bq7kbdq5drxj2"]
 
-[ext_resource type="Script" path="res://src/scenes/Player/Weapons/WeaponData.gd" id="1_jc3b4"]
-[ext_resource type="Texture2D" path="res://src/assets/textures/Flashes/circle_03.png" id="1_vxe4x"]
+[ext_resource type="Script" uid="uid://cp5fxw6c76gh4" path="res://src/scripts/weapons/weapon_data.gd" id="1_jc3b4"]
+[ext_resource type="Texture2D" uid="uid://bjopqpmjbl8fl" path="res://src/assets/textures/Flashes/circle_03.png" id="1_vxe4x"]
 
 [resource]
 script = ExtResource("1_jc3b4")
@@ -11,5 +11,6 @@ magazine_size = 5
 reload_time = 4.1
 spread = 0.005
 max_range = 200.0
+equipped_position = Vector3(0.061193287, -0.33873737, -0.6829059)
 muzzle_flash_texture = ExtResource("1_vxe4x")
 metadata/_custom_type_script = "uid://b7p23636o2eoc"

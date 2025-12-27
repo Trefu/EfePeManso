@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://b84qqums2wlf0" path="res://src/assets/textures/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_5nnx6"]
 [ext_resource type="Texture2D" uid="uid://8d7gstpind52" path="res://src/assets/textures/grids/Dark/texture_07.png" id="2_weu3e"]
-[ext_resource type="PackedScene" uid="uid://lbn4bi8pf7fu" path="res://src/scenes/EnvironmentItem/TargetSmall.tscn" id="5_5nnx6"]
+[ext_resource type="PackedScene" uid="uid://lbn4bi8pf7fu" path="res://src/scenes/environment/TargetSmall.tscn" id="5_5nnx6"]
 [ext_resource type="AudioStream" uid="uid://drdpkq036smkm" path="res://src/assets/sounds/music/OstBase.ogg" id="5_j36nd"]
-[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/Player/TrefuTestPlayer.tscn" id="6_cnfna"]
+[ext_resource type="PackedScene" uid="uid://b84l3vpfs2wf" path="res://src/scenes/player/TrefuTestPlayer.tscn" id="6_cnfna"]
 [ext_resource type="Texture2D" uid="uid://b8g0clild1ax5" path="res://src/assets/textures/grids/Orange/texture_05.png" id="6_weu3e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gkywo"]
@@ -18,17 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_filqw")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8ikh"]
-albedo_texture = ExtResource("2_weu3e")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_q65cb"]
-material = SubResource("StandardMaterial3D_b8ikh")
-size = Vector3(200, 0.1, 200)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_56e81"]
-size = Vector3(200, 0.1, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkywo"]
 albedo_texture = ExtResource("2_weu3e")
@@ -174,6 +163,17 @@ size = Vector3(4, 0.1, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_200m8"]
 size = Vector3(4, 0.1, 4)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b8ikh"]
+albedo_texture = ExtResource("2_weu3e")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_q65cb"]
+material = SubResource("StandardMaterial3D_b8ikh")
+size = Vector3(200, 0.1, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56e81"]
+size = Vector3(200, 0.1, 200)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_200m8"]
 albedo_texture = ExtResource("6_weu3e")
 uv1_triplanar = true
@@ -181,32 +181,21 @@ uv1_triplanar = true
 [node name="TestZone" type="Node3D"]
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Enviroment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
 environment = SubResource("Environment_h0k64")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 105.66548, 0)
 light_color = Color(0.8693133, 0.88926965, 0.6263495, 1)
 shadow_enabled = true
 
-[node name="Ground" type="StaticBody3D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-transform = Transform3D(0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0, 0.9983454, 0, 0.1, 0)
-mesh = SubResource("BoxMesh_q65cb")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-shape = SubResource("BoxShape3D_56e81")
-metadata/_edit_lock_ = true
-
-[node name="music" type="AudioStreamPlayer2D" parent="."]
+[node name="music" type="AudioStreamPlayer2D" parent="Enviroment"]
 stream = ExtResource("5_j36nd")
 volume_db = -12.8
 
-[node name="StaticEnviroment" type="Node" parent="."]
+[node name="StaticEnviroment" type="Node3D" parent="."]
 
 [node name="Wall3" type="CSGBox3D" parent="StaticEnviroment"]
 transform = Transform3D(-4.371139e-08, 0, 3, 0, 0.5, 0, -1, 0, -1.3113416e-07, 14.561741, 7.892569, 9.469158)
@@ -280,16 +269,31 @@ mesh = SubResource("BoxMesh_weu3e")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticEnviroment/MovingPlatform2"]
 shape = SubResource("BoxShape3D_200m8")
 
-[node name="SmallTarget1" parent="." instance=ExtResource("5_5nnx6")]
+[node name="Ground" type="StaticBody3D" parent="StaticEnviroment"]
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticEnviroment/Ground"]
+transform = Transform3D(0.9983454, 0, 0, 0, 0.9983454, 0, 0, 0, 0.9983454, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_q65cb")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticEnviroment/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_56e81")
+metadata/_edit_lock_ = true
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="SmallTarget1" parent="Props" instance=ExtResource("5_5nnx6")]
 transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, 0.035572767, 1.4440002, 20.593882)
 
-[node name="SmallTarget2" parent="." instance=ExtResource("5_5nnx6")]
+[node name="SmallTarget2" parent="Props" instance=ExtResource("5_5nnx6")]
 transform = Transform3D(-5.9604645e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -5.9604645e-08, -2.2989442, 1.4440002, 20.599348)
 
-[node name="SmallTarget3" parent="." instance=ExtResource("5_5nnx6")]
+[node name="SmallTarget3" parent="Props" instance=ExtResource("5_5nnx6")]
 transform = Transform3D(-7.4505806e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -7.4505806e-08, -4.5349803, 1.4440002, 20.587452)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="Props"]
 transform = Transform3D(-4.4703484e-08, 0, -1, 0, 1, 0, 1, 0, -4.4703484e-08, -2.4144273, 0.7999999, 20.593882)
 use_collision = true
 size = Vector3(1, 1.3000001, 5.9)

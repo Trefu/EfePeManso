@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://cc0wljeiuw0wt"]
+
+[ext_resource type="Script" uid="uid://cp5fxw6c76gh4" path="res://src/scripts/weapons/weapon_data.gd" id="1_208wa"]
+
+[resource]
+script = ExtResource("1_208wa")
+equipped_position = Vector3(-0.010676503, -0.3000003, 0)

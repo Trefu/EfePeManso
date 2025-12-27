@@ -157,12 +157,50 @@ func calculate_dash_direction() -> void:
 	var camera_forward = - camera_3d.global_transform.basis.z.normalized()
 	var camera_flat_forward = Vector3(camera_forward.x, 0, camera_forward.z).normalized()
 	
-	# Obtener input ACTUAL del jugador (no la dirección por inercia)
+	# Obtener input ACTUAL del jugador
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var current_input_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	# Verificar si se está presionando alguna tecla de movimiento
 	var is_moving_xz = current_input_direction.length() > 0.1
+	
+	# NUEVO: Obtener información de la superficie si estamos en el suelo
+	var surface_normal = Vector3.UP
+	if is_on_floor():
+		var collision = get_last_slide_collision()
+		if collision and collision.get_collision_count() > 0:
+			surface_normal = collision.get_normal(0)
+	
+	if is_on_floor():
+		if is_moving_xz:
+			# Caso 1: Piso + movimiento
+			dash_direction = current_input_direction
+		else:
+			# Caso 2: Piso + no movimiento
+			dash_direction = camera_flat_forward
+		
+		# Ajustar dirección para seguir la superficie (rampa)
+		if surface_normal != Vector3.UP:
+			# Proyectar dash_direction en el plano de la superficie
+			dash_direction = dash_direction - surface_normal * dash_direction.dot(surface_normal)
+			dash_direction = dash_direction.normalized()
+			
+	else:
+		if is_moving_xz:
+			# Caso 4: No piso + movimiento
+			var horizontal_dir = current_input_direction
+			var vertical_component = camera_forward.y
+			
+			if Input.is_action_pressed("backward"):
+				vertical_component = -vertical_component
+			
+			dash_direction = Vector3(horizontal_dir.x, vertical_component, horizontal_dir.z).normalized()
+		else:
+			# Caso 3: No piso + no movimiento
+			dash_direction = camera_forward.normalized()
+	
+	# Asegurar que el dash tenga velocidad constante
+	dash_direction = dash_direction.normalized()
 	
 	if is_on_floor():
 		if is_moving_xz:
