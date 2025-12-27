@@ -1,12 +1,11 @@
-## Base class for all states in a state machine
-## Inherit from this to create specific states
+#state.gd
 extends Node
 class_name State
 
 ## Reference to the state machine
 var state_machine: StateMachine
 ## Reference to the player (or any entity using this state)
-var player: CharacterBody3D
+var player: Player
 
 ## Called when entering this state
 func enter() -> void:

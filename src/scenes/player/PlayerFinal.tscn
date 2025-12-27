@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=8 format=3 uid="uid://bfew2pql4vbju"]
 
-[ext_resource type="Script" uid="uid://clpatffujry1r" path="res://src/Weapons/player/PlayerFinal/PlayerFinal.gd" id="1_jwon0"]
-[ext_resource type="Script" uid="uid://bt1ghjmsdnnbl" path="res://src/Weapons/player/CrisTestPlayer/Camera.gd" id="2_c6bmp"]
+[ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_jwon0"]
+[ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
+[ext_resource type="Script" uid="uid://cremqosvmi0th" path="res://src/scripts/player/state_machine/state_machine.gd" id="3_i1ct4"]
+[ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground_state.gd" id="4_i1ct4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 
@@ -12,6 +14,13 @@ height = 1.2
 
 [node name="PlayerFinal" type="CharacterBody3D"]
 script = ExtResource("1_jwon0")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_i1ct4")
+initial_state = NodePath("GroundState")
+
+[node name="GroundState" type="Node" parent="StateMachine"]
+script = ExtResource("4_i1ct4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

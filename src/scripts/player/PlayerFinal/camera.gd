@@ -2,7 +2,8 @@ extends Camera3D
 
 const MOUSE_SENSITIVITY: float = 0.06
 var head: Node3D
-@onready var player: CharacterBody3D = get_parent()
+
+@onready var player = find_parent("PlayerFinal") as Player
 @onready var camera: Camera3D = self
 
 func _process(_delta: float) -> void:

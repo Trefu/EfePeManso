@@ -1,18 +1,17 @@
-## Generic State Machine
-## Manages state transitions and delegates updates to the current state
+# state_machine.gd
 extends Node
 class_name StateMachine
 
-## Reference to the entity using this state machine (e.g., player)
 @export var initial_state: State
 
 var current_state: State
 var states: Dictionary = {}
 
 func _ready() -> void:
-	# Don't wait for owner, get parent directly
-	var player = get_parent()
-	
+	var player := get_parent() as Player
+	var test = get_parent()
+	print(test)
+	print(player)
 	if not player:
 		push_error("StateMachine has no parent!")
 		return
@@ -66,7 +65,6 @@ func transition_to(state_name: String) -> void:
 	current_state = new_state
 	current_state.enter()
 
-## Get the current state name
 func get_current_state_name() -> String:
 	if current_state:
 		return current_state.name

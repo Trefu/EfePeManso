@@ -1,13 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b84l3vpfs2wf"]
+[gd_scene load_steps=9 format=3 uid="uid://b84l3vpfs2wf"]
 
 [ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/trefu_test_player.gd" id="1_n7hh6"]
-[ext_resource type="Script" uid="uid://bugn7w5il1mv5" path="res://src/scripts/player/TrefuTestPlayer/state_machine/state_machine.gd" id="2_atryo"]
 [ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/trefui_test_camera.gd" id="2_n7hh6"]
-[ext_resource type="Script" uid="uid://b077inw0l588k" path="res://src/scripts/player/TrefuTestPlayer/states/GroundedState.gd" id="3_8671w"]
-[ext_resource type="Script" uid="uid://dg1ydp3q6dylw" path="res://src/scripts/player/TrefuTestPlayer/states/JumpingState.gd" id="4_2xpst"]
 [ext_resource type="Script" uid="uid://du38k1wlfnren" path="res://src/scripts/player/TrefuTestPlayer/canvas_layer.gd" id="4_05cjt"]
 [ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="4_fctua"]
-[ext_resource type="Script" uid="uid://c2pwckqv0747y" path="res://src/scripts/player/TrefuTestPlayer/states/FallingState.gd" id="5_0mqdt"]
 [ext_resource type="PackedScene" uid="uid://ds4kx3f3lkaxt" path="res://src/scenes/weapons/pistol/PistolBlaster.tscn" id="7_8671w"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4u3p5"]
@@ -21,19 +17,6 @@ font_size = 24
 
 [node name="TrefuTestPlayer" type="CharacterBody3D"]
 script = ExtResource("1_n7hh6")
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_atryo")
-initial_state = NodePath("Falling")
-
-[node name="Grounded" type="Node" parent="StateMachine"]
-script = ExtResource("3_8671w")
-
-[node name="Jumping" type="Node" parent="StateMachine"]
-script = ExtResource("4_2xpst")
-
-[node name="Falling" type="Node" parent="StateMachine"]
-script = ExtResource("5_0mqdt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
