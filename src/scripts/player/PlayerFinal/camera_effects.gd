@@ -30,8 +30,8 @@ func _ready():
 	pass
 
 func _physics_process(delta: float):
-	#_apply_head_bob(delta)
-	#_apply_camera_shake(delta)
+	_apply_head_bob(delta)
+	_apply_camera_shake(delta)
 	pass
 # -------------------
 # HEAD BOB

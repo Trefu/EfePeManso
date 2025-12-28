@@ -49,6 +49,8 @@ script = ExtResource("2_c6bmp")
 
 [node name="CameraEffects" type="Node3D" parent="Head"]
 script = ExtResource("6_jywwd")
+bob_amount = 0.475
+bloom_intensity = 0.57
 
 [node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
