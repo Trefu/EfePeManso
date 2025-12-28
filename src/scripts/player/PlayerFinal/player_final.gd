@@ -6,10 +6,13 @@ class_name Player
 @onready var head: Node3D = $Head
 @onready var posture_controller: PostureController = $PostureController
 @export var lerp_speed: float = 12.0
+@export var acceleration: float = 70.0
+@export var deceleration: float = 50.0
+@export var max_speed: float = 24
 const DEFAULT_SPEED: float = 16.0
 var current_speed := 0.0
 var direction: Vector3 = Vector3.ZERO
-var max_speed := 24
+
 const GRAVITY_MULTIPLIER := 3.0
 
 func _ready() -> void:
@@ -37,23 +40,18 @@ func get_input_direction() -> Vector3:
 func apply_movement(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	if input_dir.length() < 0.01:
-		var decel := 50.0
-		velocity = velocity.move_toward(Vector3(0, velocity.y, 0), decel * delta)
+		velocity = velocity.move_toward(Vector3(0, velocity.y, 0), deceleration * delta)
 		return
 
-	# Dirección en espacio global
 	var move_dir := Vector3(input_dir.x, 0, input_dir.y).normalized()
 	move_dir = transform.basis * move_dir
 	move_dir.y = 0
 	move_dir = move_dir.normalized()
 
-	# Velocidad objetivo
 	var target_velocity := move_dir * current_speed
 
-	# Aceleración suave respetando la dirección
-	var accel := 70.0
 	# Conservamos velocity.y para gravedad / salto
 	var current_velocity := Vector3(velocity.x, 0, velocity.z)
-	current_velocity = current_velocity.move_toward(Vector3(target_velocity.x, 0, target_velocity.z), accel * delta)
+	current_velocity = current_velocity.move_toward(Vector3(target_velocity.x, 0, target_velocity.z), acceleration * delta)
 	velocity.x = current_velocity.x
 	velocity.z = current_velocity.z

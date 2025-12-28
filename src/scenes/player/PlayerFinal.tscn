@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=14 format=3 uid="uid://bfew2pql4vbju"]
 
 [ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_i1ct4"]
 [ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground.gd" id="4_i1ct4"]
 [ext_resource type="Script" uid="uid://d2r82dw8w12wg" path="res://src/scripts/player/PlayerFinal/posture_controller.gd" id="5_jywwd"]
 [ext_resource type="Script" uid="uid://berl7n22i2h81" path="res://src/scripts/player/PlayerFinal/camera_effects.gd" id="6_jywwd"]
+[ext_resource type="Script" uid="uid://cxh2tne4v1jqr" path="res://src/scripts/player/PlayerFinal/player_final_canvas_ui.gd" id="7_p7vrt"]
+[ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="8_rcmxr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 
@@ -14,8 +16,16 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vy8vw"]
 height = 1.2
 
+[sub_resource type="LabelSettings" id="LabelSettings_ob6mo"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_p7vrt"]
+font_size = 24
+
 [node name="PlayerFinal" type="CharacterBody3D"]
 script = ExtResource("1_i1ct4")
+acceleration = 50.0
+deceleration = 70.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_vy8vw")
@@ -49,9 +59,52 @@ script = ExtResource("2_c6bmp")
 
 [node name="CameraEffects" type="Node3D" parent="Head"]
 script = ExtResource("6_jywwd")
-bob_amount = 0.475
-bloom_intensity = 0.57
 
 [node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5
+
+[node name="PlayerFinalCanvasUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_p7vrt")
+player = NodePath("..")
+
+[node name="Control" type="Control" parent="PlayerFinalCanvasUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="PlayerFinalCanvasUI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_rcmxr")
+expand_mode = 1
+
+[node name="StateLabel" type="Label" parent="PlayerFinalCanvasUI/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"
+label_settings = SubResource("LabelSettings_ob6mo")
+metadata/_edit_use_anchors_ = true
+
+[node name="SpeedLabel" type="Label" parent="PlayerFinalCanvasUI/Control"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 40.0
+offset_bottom = 57.0
+text = "test"
+label_settings = SubResource("LabelSettings_p7vrt")
