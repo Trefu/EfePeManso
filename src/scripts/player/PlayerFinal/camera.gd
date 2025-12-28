@@ -24,5 +24,6 @@ func _unhandled_input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		player.rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
-		camera.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+		var rot_x = camera.rotation_degrees.x - event.relative.y * MOUSE_SENSITIVITY
+		rot_x = clamp(rot_x, -89, 89)
+		camera.rotation_degrees.x = rot_x

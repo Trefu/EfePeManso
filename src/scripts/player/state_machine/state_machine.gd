@@ -9,9 +9,7 @@ var states: Dictionary = {}
 
 func _ready() -> void:
 	var player := get_parent() as Player
-	var test = get_parent()
-	print(test)
-	print(player)
+
 	if not player:
 		push_error("StateMachine has no parent!")
 		return

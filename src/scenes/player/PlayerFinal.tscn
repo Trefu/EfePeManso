@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=10 format=3 uid="uid://bfew2pql4vbju"]
 
 [ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_i1ct4"]
 [ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
 [ext_resource type="Script" uid="uid://cremqosvmi0th" path="res://src/scripts/player/state_machine/state_machine.gd" id="2_vy8vw"]
 [ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground.gd" id="4_i1ct4"]
 [ext_resource type="Script" uid="uid://d2r82dw8w12wg" path="res://src/scripts/player/PlayerFinal/posture_controller.gd" id="5_jywwd"]
+[ext_resource type="Script" uid="uid://berl7n22i2h81" path="res://src/scripts/player/PlayerFinal/camera_effects.gd" id="6_jywwd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 
@@ -45,6 +46,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 90.0
 script = ExtResource("2_c6bmp")
+
+[node name="CameraEffects" type="Node3D" parent="Head"]
+script = ExtResource("6_jywwd")
 
 [node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)

@@ -10,13 +10,12 @@ class_name PostureController
 var player: Player
 var standing_head_height := 1.5
 var crouch_depth := -0.5
-var lerp_speed := 12.0
-var standing_speed := 7.0
-var crouching_speed := 4.55
+var crouching_speed := 0.0
 var is_crouching := false
 
 func setup(p: Player) -> void:
 	player = p
+	crouching_speed = player.current_speed * 0.45
 	_apply_standing()
 
 func physics_update(delta: float) -> void:
@@ -67,14 +66,14 @@ func _apply_standing() -> void:
 	standing_collision.disabled = false
 	crouching_collision.disabled = true
 
-	player.current_speed  = standing_speed
+	player.current_speed  = player.DEFAULT_SPEED
 
 
 func _update_crouch(delta: float) -> void:
 	head.position.y = lerp(
 		head.position.y,
 		standing_head_height + crouch_depth,
-		delta * lerp_speed
+		delta * player.lerp_speed
 	)
 
 
@@ -82,5 +81,5 @@ func _update_stand(delta: float) -> void:
 	head.position.y = lerp(
 		head.position.y,
 		standing_head_height,
-		delta * lerp_speed
+		delta * player.lerp_speed
 	)
