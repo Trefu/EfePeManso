@@ -12,6 +12,7 @@ var standing_head_height := 1.5
 var crouch_depth := -0.5
 var crouching_speed := 0.0
 var is_crouching := false
+var lerp_speed := 12.0
 
 func setup(p: Player) -> void:
 	player = p
@@ -73,7 +74,7 @@ func _update_crouch(delta: float) -> void:
 	head.position.y = lerp(
 		head.position.y,
 		standing_head_height + crouch_depth,
-		delta * player.lerp_speed
+		delta * lerp_speed
 	)
 
 
@@ -81,5 +82,5 @@ func _update_stand(delta: float) -> void:
 	head.position.y = lerp(
 		head.position.y,
 		standing_head_height,
-		delta * player.lerp_speed
+		delta * lerp_speed
 	)

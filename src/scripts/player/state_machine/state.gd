@@ -2,6 +2,8 @@
 extends Node
 class_name State
 
+signal transitioned(state: State, new_state_name: String)
+
 ## Reference to the state machine
 var state_machine: StateMachine
 ## Reference to the player (or any entity using this state)

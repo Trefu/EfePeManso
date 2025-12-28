@@ -5,10 +5,31 @@ class_name Player
 @onready var state_machine: StateMachine = $StateMachine
 @onready var head: Node3D = $Head
 @onready var posture_controller: PostureController = $PostureController
-@export var lerp_speed: float = 12.0
-@export var acceleration: float = 70.0
-@export var deceleration: float = 50.0
-@export var max_speed: float = 24
+
+@export_group("Movement variables")
+var move_speed: float = 16.0
+var move_acceleration: float = 70.0
+var move_deceleration: float = 50.0
+var input_direction: Vector2
+var move_direction: Vector3
+var desired_move_speed: float
+var max_desired_move_speed: float = 24
+var desired_move_speed_curve: Curve #accumulated speed
+var hit_ground_cooldown: float = 0.1 #amount of time the character keep his accumulated speed before losing it (while being on ground)
+
+var hit_ground_cooldown_ref: float
+
+@export_group("Jump variables")
+@export var jump_height: float = 2.0
+@export var jump_time_to_peak: float = 0.4
+@export var jump_time_to_fall: float = 0.35
+@onready var jump_velocity: float = (2.0 * jump_height) / jump_time_to_peak
+@export var jump_cooldown: float = 0.25
+
+@export_group("Gravity variables")
+@onready var jump_gravity: float = (-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)
+@onready var fall_gravity: float = (-2.0 * jump_height) / (jump_time_to_fall * jump_time_to_fall)
+
 const DEFAULT_SPEED: float = 16.0
 var current_speed := 0.0
 var direction: Vector3 = Vector3.ZERO
@@ -25,33 +46,11 @@ func _physics_process(delta: float) -> void:
 	#esto va en un state
 	if Input.is_action_just_pressed("jump"): 
 		velocity.y = 11.0
-	
-	if !is_on_floor():
-		velocity += get_gravity() * delta * GRAVITY_MULTIPLIER
-	pass
 
-func get_input_direction() -> Vector3:
-	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	if input_dir == Vector2.ZERO:
-		return Vector3.ZERO
+	move_and_slide()
 
-	return (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-func apply_movement(delta: float) -> void:
-	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	if input_dir.length() < 0.01:
-		velocity = velocity.move_toward(Vector3(0, velocity.y, 0), deceleration * delta)
-		return
-
-	var move_dir := Vector3(input_dir.x, 0, input_dir.y).normalized()
-	move_dir = transform.basis * move_dir
-	move_dir.y = 0
-	move_dir = move_dir.normalized()
-
-	var target_velocity := move_dir * current_speed
-
-	# Conservamos velocity.y para gravedad / salto
-	var current_velocity := Vector3(velocity.x, 0, velocity.z)
-	current_velocity = current_velocity.move_toward(Vector3(target_velocity.x, 0, target_velocity.z), acceleration * delta)
-	velocity.x = current_velocity.x
-	velocity.z = current_velocity.z
+func apply_gravity(delta: float) -> void:
+	#if play char goes up, apply jump gravity
+	#otherwise, apply fall gravity
+	if velocity.y >= 0.0: velocity.y += jump_gravity * delta
+	elif velocity.y < 0.0: velocity.y += fall_gravity * delta

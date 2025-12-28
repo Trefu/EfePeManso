@@ -20,17 +20,14 @@ func _ready() -> void:
 			states[child.name.to_lower()] = child
 			child.state_machine = self
 			child.player = player
+			child.connect("transitioned", Callable(self, "_on_state_transitioned"))
 			print("State registered: ", child.name)
 	
-	print("Total states: ", states.size())
-	
-	# Start with initial state
 	if initial_state:
 		current_state = initial_state
-		print("Starting with state: ", current_state.name)
 		current_state.enter()
 	else:
-		push_error("No initial state set! Please set it in the Inspector.")
+		push_error("No initial state, set it in the Inspector.")
 
 func _physics_process(delta: float) -> void:
 	if current_state:
@@ -44,26 +41,23 @@ func _input(event: InputEvent) -> void:
 	if current_state:
 		current_state.handle_input(event)
 
-## Transition to a new state by name
-func transition_to(state_name: String) -> void:
-	var new_state = states.get(state_name.to_lower())
+func get_current_state_name() -> String:
+	if current_state:
+		return current_state.name
+	return ""
+
+func _on_state_transitioned(state: State, new_state_name: String) -> void:
+	if state != current_state:
+		return
 	
+	var new_state = states.get(new_state_name.to_lower())
 	if not new_state:
-		push_error("State '%s' not found in state machine. Available states: %s" % [state_name, states.keys()])
+		push_error("State '%s' not found in state machine." % new_state_name)
 		return
 	
-	if new_state == current_state:
-		return
-	
-	print("Transitioning from %s to %s" % [current_state.name if current_state else "none", new_state.name])
-	
+	print("Transitioning from %s to %s" % [current_state.name, new_state.name])
 	if current_state:
 		current_state.exit()
 	
 	current_state = new_state
 	current_state.enter()
-
-func get_current_state_name() -> String:
-	if current_state:
-		return current_state.name
-	return ""

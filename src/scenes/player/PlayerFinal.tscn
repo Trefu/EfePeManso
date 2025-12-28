@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=15 format=3 uid="uid://bfew2pql4vbju"]
 
 [ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_i1ct4"]
 [ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
 [ext_resource type="Script" uid="uid://cremqosvmi0th" path="res://src/scripts/player/state_machine/state_machine.gd" id="2_vy8vw"]
 [ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground.gd" id="4_i1ct4"]
+[ext_resource type="Script" uid="uid://qapaj6autim8" path="res://src/scripts/player/states/idle.gd" id="4_rcmxr"]
 [ext_resource type="Script" uid="uid://d2r82dw8w12wg" path="res://src/scripts/player/PlayerFinal/posture_controller.gd" id="5_jywwd"]
 [ext_resource type="Script" uid="uid://berl7n22i2h81" path="res://src/scripts/player/PlayerFinal/camera_effects.gd" id="6_jywwd"]
 [ext_resource type="Script" uid="uid://cxh2tne4v1jqr" path="res://src/scripts/player/PlayerFinal/player_final_canvas_ui.gd" id="7_p7vrt"]
@@ -24,8 +25,6 @@ font_size = 24
 
 [node name="PlayerFinal" type="CharacterBody3D"]
 script = ExtResource("1_i1ct4")
-acceleration = 50.0
-deceleration = 70.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_vy8vw")
@@ -33,6 +32,9 @@ initial_state = NodePath("ground")
 
 [node name="ground" type="Node" parent="StateMachine"]
 script = ExtResource("4_i1ct4")
+
+[node name="idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_rcmxr")
 
 [node name="PostureController" type="Node" parent="."]
 script = ExtResource("5_jywwd")
