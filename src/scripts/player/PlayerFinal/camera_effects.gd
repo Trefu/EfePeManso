@@ -62,5 +62,5 @@ func _apply_camera_shake(delta: float) -> void:
 		head.position += Vector3(
 			randf_range(-shake_intensity, shake_intensity),
 			randf_range(-shake_intensity, shake_intensity),
-			randf_range(-shake_intensity, shake_intensity)
+			0 # Z = 0 para no mover hacia adelante/atrás
 		)
