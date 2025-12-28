@@ -9,7 +9,7 @@ class_name Player
 const DEFAULT_SPEED: float = 16.0
 var current_speed := 0.0
 var direction: Vector3 = Vector3.ZERO
-
+var max_speed := 24
 const GRAVITY_MULTIPLIER := 3.0
 
 func _ready() -> void:

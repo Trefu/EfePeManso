@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b84l3vpfs2wf"]
 
 [ext_resource type="Script" uid="uid://b3btn4m4nuh6r" path="res://src/scripts/player/TrefuTestPlayer/trefu_test_player.gd" id="1_n7hh6"]
-[ext_resource type="Script" uid="uid://ck3ld2iou6inw" path="res://src/scripts/player/TrefuTestPlayer/trefu_test_camera.gd" id="2_n7hh6"]
+[ext_resource type="Script" path="res://src/scripts/player/TrefuTestPlayer/trefu_test_camera.gd" id="2_n7hh6"]
 [ext_resource type="Script" uid="uid://du38k1wlfnren" path="res://src/scripts/player/TrefuTestPlayer/canvas_layer.gd" id="4_05cjt"]
 [ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="4_fctua"]
 [ext_resource type="PackedScene" uid="uid://ds4kx3f3lkaxt" path="res://src/scenes/weapons/pistol/PistolBlaster.tscn" id="7_8671w"]

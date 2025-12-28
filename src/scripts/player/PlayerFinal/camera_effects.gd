@@ -10,21 +10,14 @@ class_name CameraEffects
 # HEAD BOB
 # -------------------
 var bob_timer := 0.0
-@export var bob_speed := 6.0
-@export var bob_amount := 0.05
+@export var bob_speed := 12.0
+@export var bob_amount := 0.45
 
 # -------------------
 # CAMERA SHAKE
 # -------------------
 var shake_timer := 0.0
 var shake_intensity := 0.0
-
-# -------------------
-# BLOOM / POST-PROCESSING
-# -------------------
-@export var bloom_enabled := true
-@export var bloom_intensity := 0.5
-@export var bloom_threshold := 0.7
 
 func _ready():
 	pass
@@ -42,8 +35,10 @@ func _apply_head_bob(delta: float) -> void:
 		base_height += player.posture_controller.crouch_depth
 
 	if player.direction.length() > 0:
-		bob_timer += delta * bob_speed
-		var offset: float = sin(bob_timer) * bob_amount
+		var speed_factor: float = player.velocity.length() / player.max_speed
+		bob_timer += delta * bob_speed * speed_factor
+		var offset := sin(bob_timer) * bob_amount * speed_factor
+
 		head.position.y = lerp(head.position.y, base_height + offset, delta * 10)
 	else:
 		bob_timer = 0
