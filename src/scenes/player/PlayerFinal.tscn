@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=9 format=3 uid="uid://bfew2pql4vbju"]
 
-[ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_jwon0"]
+[ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_i1ct4"]
 [ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
-[ext_resource type="Script" uid="uid://cremqosvmi0th" path="res://src/scripts/player/state_machine/state_machine.gd" id="3_i1ct4"]
-[ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground_state.gd" id="4_i1ct4"]
+[ext_resource type="Script" uid="uid://cremqosvmi0th" path="res://src/scripts/player/state_machine/state_machine.gd" id="2_vy8vw"]
+[ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground.gd" id="4_i1ct4"]
+[ext_resource type="Script" uid="uid://d2r82dw8w12wg" path="res://src/scripts/player/PlayerFinal/posture_controller.gd" id="5_jywwd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 
@@ -13,14 +14,17 @@
 height = 1.2
 
 [node name="PlayerFinal" type="CharacterBody3D"]
-script = ExtResource("1_jwon0")
+script = ExtResource("1_i1ct4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_i1ct4")
-initial_state = NodePath("GroundState")
+script = ExtResource("2_vy8vw")
+initial_state = NodePath("ground")
 
-[node name="GroundState" type="Node" parent="StateMachine"]
+[node name="ground" type="Node" parent="StateMachine"]
 script = ExtResource("4_i1ct4")
+
+[node name="PostureController" type="Node" parent="."]
+script = ExtResource("5_jywwd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -42,6 +46,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 90.0
 script = ExtResource("2_c6bmp")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="HeightRayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5
