@@ -4,6 +4,16 @@ class_name GroundState
 
 var state_name: String = "ground"
 
+func enter() -> void:
+	verifications()
+	
+func verifications() -> void:
+	if player.floor_snap_length != 1.0: player.floor_snap_length = 1.0
+	if player.jump_cooldown > 0.0: player.jump_cooldown = -1.0
+	if player.jumps_in_air_allowed < player.jumps_in_air_allowed_ref: player.jumps_in_air_allowed = player.jumps_in_air_allowed_ref
+	if player.coyote_jump_cooldown < player.coyote_jump_cooldown_ref: player.coyote_jump_cooldown = player.coyote_jump_cooldown_ref
+	if player.has_dashed: player.has_dashed = false
+
 func physics_update(delta: float) -> void:
 	check_if_floor()
 	player.apply_gravity(delta)
@@ -13,7 +23,16 @@ func physics_update(delta: float) -> void:
 func check_if_floor() -> void:
 	if !player.is_on_floor():
 		if player.velocity.y < 0.0:
-			print('air')
+			#transitioned.emit(self, "on_air")
+			print("on_air")
+	if player.is_on_floor():
+		if player.auto_bunny_hop and player.hit_ground_cooldown > 0.0 and player.input_direction != Vector2.ZERO and player.jump_cooldown < 0.0:
+			transitioned.emit(self, "jump")
+		if player.jump_buff_on and player.jump_cooldown < 0.0:
+			player.buffered_jump = true
+			player.jump_buff_on = false
+			transitioned.emit(self, "jump")
+
 
 func move(delta : float) -> void:
 	player.input_direction = Input.get_vector("left", "right", "forward", "backward")
@@ -37,8 +56,7 @@ func input_management(delta: float) -> void:
 		player.posture_controller.request_stand()
 
 	if Input.is_action_just_pressed("jump") and player.is_on_floor():
-		print('salto')
-		#transition_to("jump")
+		transitioned.emit(self, "jump")
 	elif not player.is_on_floor():
-		print('air')
-		#transition_to("air")
+		#transitioned.emit(self, "on_air")
+		print("on_air")

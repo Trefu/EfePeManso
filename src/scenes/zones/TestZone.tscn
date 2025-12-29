@@ -309,3 +309,4 @@ size = Vector3(1, 1.3000001, 5.9)
 material = SubResource("StandardMaterial3D_200m8")
 
 [node name="PlayerFinal" parent="." instance=ExtResource("6_200m8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2771678, 0)

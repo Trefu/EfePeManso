@@ -10,8 +10,8 @@ class_name CameraEffects
 # HEAD BOB
 # -------------------
 var bob_timer := 0.0
-@export var bob_speed := 12.0
-@export var bob_amount := 0.45
+@export var bob_speed := 10.0
+@export var bob_amount := 0.40
 
 # -------------------
 # CAMERA SHAKE
@@ -34,8 +34,8 @@ func _apply_head_bob(delta: float) -> void:
 	if player.posture_controller.is_crouching:
 		base_height += player.posture_controller.crouch_depth
 
-	if player.direction.length() > 0:
-		var speed_factor: float = player.velocity.length() / player.max_speed
+	if player.move_direction.length() > 0:
+		var speed_factor: float = player.velocity.length() / player.move_speed
 		bob_timer += delta * bob_speed * speed_factor
 		var offset := sin(bob_timer) * bob_amount * speed_factor
 

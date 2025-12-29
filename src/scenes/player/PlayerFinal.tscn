@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bfew2pql4vbju"]
+[gd_scene load_steps=19 format=3 uid="uid://bfew2pql4vbju"]
 
 [ext_resource type="Script" uid="uid://by7kkev1xraps" path="res://src/scripts/player/PlayerFinal/player_final.gd" id="1_i1ct4"]
 [ext_resource type="Script" uid="uid://delky6orrdanl" path="res://src/scripts/player/PlayerFinal/camera.gd" id="2_c6bmp"]
@@ -6,9 +6,19 @@
 [ext_resource type="Script" uid="uid://do8vr5qs6swgp" path="res://src/scripts/player/states/ground.gd" id="4_i1ct4"]
 [ext_resource type="Script" uid="uid://qapaj6autim8" path="res://src/scripts/player/states/idle.gd" id="4_rcmxr"]
 [ext_resource type="Script" uid="uid://d2r82dw8w12wg" path="res://src/scripts/player/PlayerFinal/posture_controller.gd" id="5_jywwd"]
+[ext_resource type="Script" uid="uid://dkt71ofygiyg7" path="res://src/scripts/player/states/jump.gd" id="5_ob6mo"]
 [ext_resource type="Script" uid="uid://berl7n22i2h81" path="res://src/scripts/player/PlayerFinal/camera_effects.gd" id="6_jywwd"]
+[ext_resource type="Script" uid="uid://bfm7fgreqghqk" path="res://src/scripts/player/states/in_air.gd" id="6_rpqmo"]
 [ext_resource type="Script" uid="uid://cxh2tne4v1jqr" path="res://src/scripts/player/PlayerFinal/player_final_canvas_ui.gd" id="7_p7vrt"]
 [ext_resource type="Texture2D" uid="uid://6264pwmtbc3k" path="res://src/assets/textures/Crosshairs/Outline Retina/crosshair039.png" id="8_rcmxr"]
+
+[sub_resource type="Curve" id="Curve_rpqmo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_kcyqg"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0cbq"]
 
@@ -25,6 +35,8 @@ font_size = 24
 
 [node name="PlayerFinal" type="CharacterBody3D"]
 script = ExtResource("1_i1ct4")
+desired_move_speed_curve = SubResource("Curve_rpqmo")
+in_air_move_speed_curve = SubResource("Curve_kcyqg")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_vy8vw")
@@ -36,24 +48,30 @@ script = ExtResource("4_i1ct4")
 [node name="idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_rcmxr")
 
+[node name="jump" type="Node" parent="StateMachine"]
+script = ExtResource("5_ob6mo")
+
+[node name="in_air" type="Node" parent="StateMachine"]
+script = ExtResource("6_rpqmo")
+
 [node name="PostureController" type="Node" parent="."]
 script = ExtResource("5_jywwd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_v0cbq")
 
 [node name="StandingCollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_i1ct4")
 
 [node name="CrouchingCollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3963507, 0)
 shape = SubResource("CapsuleShape3D_vy8vw")
 disabled = true
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.715, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 fov = 90.0
@@ -63,8 +81,30 @@ script = ExtResource("2_c6bmp")
 script = ExtResource("6_jywwd")
 
 [node name="HeightRayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 target_position = Vector3(0, 2, 0)
 debug_shape_thickness = 5
+
+[node name="Raycasts" type="Node3D" parent="."]
+
+[node name="CeilingCheck" type="RayCast3D" parent="Raycasts"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758088, 0)
+exclude_parent = false
+target_position = Vector3(0, 3, 0)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="FloorCheck" type="RayCast3D" parent="Raycasts"]
+unique_name_in_owner = true
+exclude_parent = false
+target_position = Vector3(0, -3, 0)
+debug_shape_custom_color = Color(0, 0.823529, 0.956863, 1)
+
+[node name="SlideFloorCheck" type="RayCast3D" parent="Raycasts"]
+unique_name_in_owner = true
+exclude_parent = false
+target_position = Vector3(0, -3, 0)
+debug_shape_custom_color = Color(0, 0.823529, 0.956863, 1)
 
 [node name="PlayerFinalCanvasUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("7_p7vrt")

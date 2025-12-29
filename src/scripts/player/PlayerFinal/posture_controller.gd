@@ -8,15 +8,17 @@ class_name PostureController
 @onready var height_ray_cast_3d: RayCast3D = $"../HeightRayCast3D"
 
 var player: Player
-var standing_head_height := 1.5
+var standing_head_height := 0.7
 var crouch_depth := -0.5
 var crouching_speed := 0.0
 var is_crouching := false
 var lerp_speed := 12.0
+var original_standing_speed : float
 
 func setup(p: Player) -> void:
 	player = p
-	crouching_speed = player.current_speed * 0.45
+	original_standing_speed = player.move_speed
+	crouching_speed = player.move_speed * 0.45
 	_apply_standing()
 
 func physics_update(delta: float) -> void:
@@ -58,7 +60,7 @@ func _apply_crouch() -> void:
 	standing_collision.disabled = true
 	crouching_collision.disabled = false
 
-	player.current_speed  = crouching_speed
+	player.move_speed  = crouching_speed
 
 
 func _apply_standing() -> void:
@@ -66,8 +68,9 @@ func _apply_standing() -> void:
 
 	standing_collision.disabled = false
 	crouching_collision.disabled = true
-
-	player.current_speed  = player.DEFAULT_SPEED
+	print('se me para')
+	print(player.move_speed * 1)
+	player.move_speed  = original_standing_speed
 
 
 func _update_crouch(delta: float) -> void:
