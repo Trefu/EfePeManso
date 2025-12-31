@@ -36,10 +36,10 @@ func input_management() -> void:
 		
 func check_if_floor():
 	if !player.is_on_floor() and player.velocity.y < 0.0:
-		transition_to("on_air")
+		transitioned.emit(self, "in_air")
 		
 	if player.is_on_floor():
-		transition_to("ground")
+		transitioned.emit(self, "ground")
 		
 	#lose all velocity and accumulated speed if play char hit a wall
 	if player.is_on_wall():
