@@ -25,7 +25,7 @@ func applies(delta : float) -> void:
 		
 func input_management() -> void:
 	if Input.is_action_just_pressed("jump"):
-		if player.floor_check.is_colliding() and player.last_frame_position.y > player.position.y and player.nb_jumps_in_air_allowed <= 0: player.jump_buff_on = true
+		if player.floor_check.is_colliding() and player.last_frame_position.y > player.position.y and player.jumps_in_air_allowed <= 0: player.jump_buff_on = true
 		#check if can coyote jump
 		if player.was_on_floor and player.coyote_jump_cooldown > 0.0 and player.last_frame_position.y > player.position.y and player.jump_cooldown < 0.0:
 			player.coyote_jump_on = true
@@ -34,7 +34,7 @@ func input_management() -> void:
 			transitioned.emit(self, "jump")
 		
 	if Input.is_action_just_pressed("dash"):
-		if player.time_bef_can_dash_again <= 0.0 and player.nb_dashs_allowed > 0:
+		if player.time_bef_can_dash_again <= 0.0 and player.dashs_allowed > 0:
 			#transitioned.emit(self, "dash")
 			print("dash desde in air")
 		

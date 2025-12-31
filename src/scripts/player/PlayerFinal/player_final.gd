@@ -39,7 +39,7 @@ var dash_direction: Vector3 = Vector3.ZERO
 @export var buffered_jump: bool = false
 @export var coyote_jump_cooldown: float = 0.3
 @export var coyote_jump_on: bool = false
-@export_range(0.1, 1.0, 0.05) var in_air_input_multiplier: float = 0.5
+@export_range(0.1, 1.0, 0.05) var in_air_input_multiplier: float = 0.9
 @onready var jump_velocity: float = (2.0 * jump_height) / jump_time_to_peak
 
 @export_group("Slide variables")

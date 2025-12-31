@@ -5,7 +5,7 @@ class_name JumpState
 var state_name : String = "jump"
 
 func enter() -> void:
-	verifications()	
+	verifications()
 	jump()
 	
 func verifications() -> void:
@@ -39,7 +39,8 @@ func check_if_floor():
 		transitioned.emit(self, "in_air")
 		
 	if player.is_on_floor():
-		transitioned.emit(self, "ground")
+		if player.move_direction: transitioned.emit(self, "ground")
+		else: transitioned.emit(self, "IdleState")
 		
 	#lose all velocity and accumulated speed if play char hit a wall
 	if player.is_on_wall():
